@@ -1,4 +1,5 @@
 package com.since.sincethird.controller;
+import com.since.sincethird.common.Result;
 import com.since.sincethird.common.Ret;
 import com.since.sincethird.common.UserResult;
 import com.since.sincethird.entity.WXUser;
@@ -53,7 +54,7 @@ public class UserController{
     public Ret findByOpenId(String open_id){
         WXUser user=userService.findByOpenId(open_id);
         if (user!=null){
-            Ret ret = new Ret(UserResult.USER_SUCCESS, user);
+            Ret ret = new Ret(Result.SUCCESS, user);
             return ret;
         }else{
             Ret ret = new Ret(UserResult.USER_NOT_FIND, user);

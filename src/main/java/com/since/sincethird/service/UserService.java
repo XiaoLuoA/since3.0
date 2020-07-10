@@ -13,4 +13,10 @@ public interface UserService {
 
     WXUser save(WXUser WXUser);
 
+    WXUser findByOpenId(String OpenId);
+
+
+
+
+
 }

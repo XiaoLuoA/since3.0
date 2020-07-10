@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsersRep extends JpaRepository<WXUser,Long> {
+    WXUser findByOpenId(String OpenId);
+
 
 }
 

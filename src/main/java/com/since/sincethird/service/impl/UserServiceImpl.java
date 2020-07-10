@@ -21,5 +21,10 @@ public class UserServiceImpl implements UserService {
         return usersRep.save(WXUser);
     }
 
+    @Override
+    public WXUser findByOpenId(String OpenId) {
+        return usersRep.findByOpenId(OpenId);
+    }
+
 
 }

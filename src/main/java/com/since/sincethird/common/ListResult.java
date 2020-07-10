@@ -6,4 +6,5 @@ package com.since.sincethird.common;
 public interface ListResult {
     Code OPENID_NOT_FOUND = new Code("900_401","openId不能为空！");
     Code ORDERID_NOT_FOUND = new Code("900_402","订单ID不能为空！");
+    Code NO_NUM = new Code("900_403","库存不足，购买失败！");
 }

@@ -1,7 +1,10 @@
 package com.since.sincethird.service;
 
+import com.since.sincethird.entity.Book;
 import com.since.sincethird.entity.WXList;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -12,8 +15,9 @@ public interface ListService {
     /**
      * 添加一个订单
      * @param wxList
+     * @return
      */
-    void add(WXList wxList);
+    List<WXList> save(WXList wxList);
 
 
 
@@ -22,13 +26,11 @@ public interface ListService {
      * @param open_id
      * @return
      */
-    WXList findListByOpenId(String open_id);
+    List<WXList> findListByOpenId(String open_id);
 
 
-    /**
-     * 根据id修改订单信息
-     * @param id
-     */
-    void modify(Long id);
+
+
+
 }
 

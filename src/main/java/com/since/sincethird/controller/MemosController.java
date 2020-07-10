@@ -27,13 +27,14 @@ public class MemosController {
     @RequestMapping("/add")
     @ResponseBody
     public Ret addMemos(@RequestBody WXMemos wXMemos){
-        System.out.println(wXMemos);
         Ret ret ;
         if (null==wXMemos){
             ret= new Ret(MEMOS_OBJ_IS_NULL,null);
+            return ret;
         }
         if (null==wXMemos.getMessage()){
             ret= new Ret(MEMOS_MESSAGE_IS_NULL,null);
+            return ret;
         }
         WXMemos xWMemos=memosService.save(wXMemos);
         ret= new Ret(MemosResult.SUCCESS,xWMemos);
@@ -43,13 +44,12 @@ public class MemosController {
     @RequestMapping("/findAll")
     @ResponseBody
     public Ret findAllMemos(){
-        System.out.println("访问到数据");
         List<WXMemos> allMemos=memosService.findAllMemos();
         Ret ret;
         if (allMemos.size()<1){
             ret= new Ret(MemosResult.MEMOS_GET_IS_NULL,null);
+            return ret;
         }
-        System.out.println(allMemos);
         ret= new Ret(MemosResult.SUCCESS,allMemos);
         return ret;
     }

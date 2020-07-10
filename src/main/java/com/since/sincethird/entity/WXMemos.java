@@ -21,5 +21,4 @@ public class WXMemos {
     private String message;
     private String message_time;
     private String status;
-
 }

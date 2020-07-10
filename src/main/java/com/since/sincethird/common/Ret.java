@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ret<T> {
-    public Ret(CODE error,T data){
+    public Ret(Code error,T data){
         this.code = error.getCode();
         this.data = data;
         this.errMsg = error.getErrMsg();

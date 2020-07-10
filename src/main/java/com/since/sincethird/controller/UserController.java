@@ -25,7 +25,7 @@ public class UserController{
     @ResponseBody
     public Ret add(@RequestBody WXUser WXUser){
         System.out.println(WXUser);
-        WXUser.setStatus("1");
+        WXUser.setStatus(1);
         WXUser = userService.save(WXUser);
         Ret ret = new Ret(CODE.USER_NOT_FIND_ERROR, WXUser);
         return ret;

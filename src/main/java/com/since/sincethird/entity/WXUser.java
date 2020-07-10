@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * @author 王英豪111
+ */
 @Entity
 @Data
 @Table(name = "wx_user")
@@ -20,5 +23,5 @@ public class WXUser {
 
     String wxAddress;
 
-    String status;
+    int status;
 }

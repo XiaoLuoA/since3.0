@@ -7,17 +7,14 @@ import lombok.Getter;
  */
 
 @Getter
-public enum CODE {
-    SUCCESS("0"),
-    NOT_FIND_ERROR("404","404"),
-    USER_NOT_FIND_ERROR("404_100","该用户不存在");
+public class Code {
     String code;
     String errMsg;
-    CODE(String code,String errMsg){
+    Code(String code,String errMsg){
         this.code = code;
         this.errMsg = errMsg;
     };
-    CODE(String code){
+    Code(String code){
         this.code = code;
     };
 }

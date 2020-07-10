@@ -1,7 +1,6 @@
 package com.since.sincethird.controller;
-
-import com.since.sincethird.common.CODE;
 import com.since.sincethird.common.Ret;
+import com.since.sincethird.common.UserResult;
 import com.since.sincethird.entity.WXUser;
 import com.since.sincethird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class UserController{
         System.out.println(WXUser);
         WXUser.setStatus("1");
         WXUser = userService.save(WXUser);
-        Ret ret = new Ret(CODE.USER_NOT_FIND_ERROR, WXUser);
+        Ret ret = new Ret(UserResult.USER_NOT_FIND, WXUser);
         return ret;
     }
 
@@ -35,7 +34,7 @@ public class UserController{
     @ResponseBody
     public Ret add(Long id){
         WXUser user = userService.findById(id);
-        Ret ret = new Ret(CODE.USER_NOT_FIND_ERROR, user);
+        Ret ret = new Ret(UserResult.USER_NOT_FIND, user);
         return ret;
     }
 

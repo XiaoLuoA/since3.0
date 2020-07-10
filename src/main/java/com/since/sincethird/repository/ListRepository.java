@@ -21,7 +21,7 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
      * @return
      */
     @Override
-     List<WXList> save(WXList wxList);
+     WXList save(WXList wxList);
 
 
     /**

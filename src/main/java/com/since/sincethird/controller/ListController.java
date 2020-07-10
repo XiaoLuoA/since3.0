@@ -38,8 +38,8 @@ public class ListController {
             ret = new Ret(ListResult.LIST_BOOK_NUM_NO,"");
             return ret;
         }
-        List<WXList> wxLists = listService.save(wxList);
-        ret = new Ret(Result.SUCCESS,wxLists);
+        WXList wxList1 = listService.save(wxList);
+        ret = new Ret(Result.SUCCESS,wxList1);
         return ret;
     }
 
@@ -60,13 +60,13 @@ public class ListController {
 
     @RequestMapping("/modify")
     public Ret modify(WXList wxList){
-       List<WXList> wxLists = listService.save(wxList);
+       WXList wxList1 = listService.save(wxList);
         Ret ret = null;
         if (wxList.getOpen_id() == null){
             ret = new Ret(ListResult.LIST_ID_NOT_FOUND,"");
             return ret;
         }
-        ret = new Ret(Result.SUCCESS,wxLists);
+        ret = new Ret(Result.SUCCESS,wxList1);
 
         return ret;
     }

@@ -21,7 +21,7 @@ public class ListServiceImpl implements ListService {
     private ListRepository listRepository;
 
     @Override
-    public List<WXList> save(WXList wxList) {
+    public WXList save(WXList wxList) {
         return listRepository.save(wxList);
     }
 

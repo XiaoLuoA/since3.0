@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
 
 
 /**
@@ -56,8 +55,8 @@ public class UserController{
 
     @RequestMapping("/findUserByOpenId")
     @ResponseBody
-    public Ret findByOpenId(@RequestBody Map<String,String> map){
-        WXUser user=userService.findByOpenId(map.get("open_id"));
+    public Ret findByOpenId(String open_id){
+        WXUser user=userService.findByOpenId(open_id);
         if (user!=null){
             Ret ret = new Ret(UserResult.USER_SUCCESS, user);
             return ret;

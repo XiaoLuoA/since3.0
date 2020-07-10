@@ -30,4 +30,7 @@ public interface ListRepository {
      * @param id
      */
     void modify(Long id);
+
+
+    int findBookNumById();
 }

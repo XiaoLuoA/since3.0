@@ -28,22 +28,17 @@ public class UserController{
 
     @RequestMapping("/add")
     @ResponseBody
-
     public Ret add(@RequestBody WXUser WXUser){
-        WXUser user=userService.findByOpenId(WXUser.getOpenId());
-        if (user!=null){
-            user.setStatus("1");
-            user = userService.save(user);
-            Ret ret = new Ret(UserResult.USER_SUCCESS, user);
-            return ret;
-        }else{
-            Ret ret = new Ret(UserResult.USER_SUCCESS, user);
-            return ret;
-        }
-
-
-
+        System.out.println(WXUser);
+        WXUser.setStatus(1);
+        WXUser = userService.save(WXUser);
+        Ret ret = new Ret(UserResult.USER_NOT_FIND, WXUser);
+        return ret;
     }
+
+
+
+
 
     @RequestMapping("/find")
     @ResponseBody
@@ -64,7 +59,6 @@ public class UserController{
             Ret ret = new Ret(UserResult.USER_NOT_FIND, user);
             return ret;
         }
-
     }
 
 

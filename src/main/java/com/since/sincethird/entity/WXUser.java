@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * @author luoxinyuan
+ * @author 王英豪111
  */
 @Entity
 @Data
@@ -23,5 +23,5 @@ public class WXUser {
 
     String wxAddress;
 
-    String status;
+    int status;
 }

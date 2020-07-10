@@ -33,8 +33,16 @@ public class BookController {
     @ResponseBody
     public Ret findBookById(Long id){
         Book book=bookService.findById(id);
-        Ret ret = new Ret(Result.SUCCESS, book);
-        return ret;
+
+        if(book!=null){
+            Ret ret = new Ret(Result.SUCCESS, book);
+            return ret;
+        }else{
+            Ret ret = new Ret(BookResult.NOT_FIND_ERROR, book);
+            return ret;
+        }
+
+
 
     }
 

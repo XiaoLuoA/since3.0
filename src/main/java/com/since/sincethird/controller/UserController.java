@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
-
 
 /**
  * @author luoxinyuan
@@ -24,21 +22,12 @@ public class UserController{
 
     @RequestMapping("/add")
     @ResponseBody
-
     public Ret add(@RequestBody WXUser WXUser){
-        WXUser user=userService.findByOpenId(WXUser.getOpenId());
-        if (user!=null){
-            user.setStatus("1");
-            user = userService.save(user);
-            Ret ret = new Ret(UserResult.USER_SUCCESS, user);
-            return ret;
-        }else{
-            Ret ret = new Ret(UserResult.USER_SUCCESS, user);
-            return ret;
-        }
-
-
-
+        System.out.println(WXUser);
+        WXUser.setStatus(1);
+        WXUser = userService.save(WXUser);
+        Ret ret = new Ret(UserResult.USER_NOT_FIND, WXUser);
+        return ret;
     }
 
     @RequestMapping("/find")
@@ -48,21 +37,6 @@ public class UserController{
         Ret ret = new Ret(UserResult.USER_NOT_FIND, user);
         return ret;
     }
-
-    @RequestMapping("/findUserByOpenId")
-    @ResponseBody
-    public Ret findByOpenId(@RequestBody Map<String,String> map){
-        WXUser user=userService.findByOpenId(map.get("open_id"));
-        if (user!=null){
-            Ret ret = new Ret(UserResult.USER_SUCCESS, user);
-            return ret;
-        }else{
-            Ret ret = new Ret(UserResult.USER_NOT_FIND, user);
-            return ret;
-        }
-
-    }
-
 
 }
 

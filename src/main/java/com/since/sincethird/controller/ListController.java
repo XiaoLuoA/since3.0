@@ -35,7 +35,7 @@ public class ListController {
         Book book = bookService.findById(book_id);
         Ret ret = null;
         if ( wxList.getBook_num() >= book.getBookcount()){
-            ret = new Ret(ListResult.NO_NUM,"");
+            ret = new Ret(ListResult.LIST_BOOK_NUM_NO,"");
             return ret;
         }
         List<WXList> wxLists = listService.save(wxList);
@@ -50,7 +50,7 @@ public class ListController {
         List<WXList> wxLists = listService.findListByOpenId(open_id);
         Ret ret = null;
         if (open_id == null){
-           ret = new Ret(ListResult.OPENID_NOT_FOUND,"");
+           ret = new Ret(ListResult.LIST_OPENID_NOT_FOUND,"");
            return ret;
        }
         ret = new Ret(Result.SUCCESS,wxLists);
@@ -63,7 +63,7 @@ public class ListController {
        List<WXList> wxLists = listService.save(wxList);
         Ret ret = null;
         if (wxList.getOpen_id() == null){
-            ret = new Ret(ListResult.ORDERID_NOT_FOUND,"");
+            ret = new Ret(ListResult.LIST_ID_NOT_FOUND,"");
             return ret;
         }
         ret = new Ret(Result.SUCCESS,wxLists);

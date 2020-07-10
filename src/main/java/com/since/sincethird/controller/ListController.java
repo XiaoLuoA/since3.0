@@ -34,8 +34,9 @@ public class ListController {
         Long book_id = Long.valueOf(wxList.getBook_id());
         Book book = bookService.findById(book_id);
         Ret ret = null;
-        if (book_id >= book.getBookcount()){
-            ret = new Ret(ListResult.NO_NUM,null);
+        if ( wxList.getBook_num() >= book.getBookcount()){
+            ret = new Ret(ListResult.NO_NUM,"");
+            return ret;
         }
         List<WXList> wxLists = listService.save(wxList);
         ret = new Ret(Result.SUCCESS,wxLists);
@@ -45,23 +46,25 @@ public class ListController {
 
 
     @RequestMapping("/findListByOpenId")
-    private Ret findListByOpenId(String open_id){
+    public Ret findListByOpenId(String open_id){
         List<WXList> wxLists = listService.findListByOpenId(open_id);
         Ret ret = null;
         if (open_id == null){
-           ret = new Ret(ListResult.OPENID_NOT_FOUND,null);
+           ret = new Ret(ListResult.OPENID_NOT_FOUND,"");
+           return ret;
        }
         ret = new Ret(Result.SUCCESS,wxLists);
 
        return ret;
     }
 
-    @RequestMapping("modify")
-    private Ret modify(WXList wxList){
+    @RequestMapping("/modify")
+    public Ret modify(WXList wxList){
        List<WXList> wxLists = listService.save(wxList);
         Ret ret = null;
         if (wxList.getOpen_id() == null){
-            ret = new Ret(ListResult.ORDERID_NOT_FOUND,null);
+            ret = new Ret(ListResult.ORDERID_NOT_FOUND,"");
+            return ret;
         }
         ret = new Ret(Result.SUCCESS,wxLists);
 

@@ -1,7 +1,7 @@
 package com.since.sincethird.controller;
 
-import com.since.sincethird.common.CODE;
 import com.since.sincethird.common.Ret;
+import com.since.sincethird.common.UserResult;
 import com.since.sincethird.entity.Dog;
 import com.since.sincethird.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class DogController{
     public Ret login(@RequestBody Dog dog){
         System.out.println(dog);
         dog = dogService.findById(dog.getId());
-        Ret ret = new Ret(CODE.USER_NOT_FIND_ERROR,dog);
+        Ret ret = new Ret(UserResult.USER_NOT_FIND,dog);
         return ret;
     }
 

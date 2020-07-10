@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * @author luoxinyuan
+ */
 @Entity
 @Data
 @Table(name = "wx_user")

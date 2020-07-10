@@ -20,6 +20,11 @@ public class UserController{
     @Autowired
     UserService userService;
 
+    @RequestMapping("/index")
+    public String index(){
+        return "page/user/index.html";
+    }
+
     @RequestMapping("/add")
     @ResponseBody
     public Ret add(@RequestBody WXUser WXUser){

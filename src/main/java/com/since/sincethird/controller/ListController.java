@@ -31,14 +31,14 @@ public class ListController {
 
     @RequestMapping("/add")
     public Ret add(WXList wxList){
-        Long book_id = Long.valueOf(wxList.getBook_id());
+        Long book_id = Long.valueOf(wxList.getBookId());
         Book book = bookService.findById(book_id);
         Ret ret = null;
         if ( wxList.getBook_num() >= book.getBookcount()){
             ret = new Ret(ListResult.NO_NUM,"");
             return ret;
         }
-        List<WXList> wxLists = listService.save(wxList);
+        WXList wxLists = listService.save(wxList);
         ret = new Ret(Result.SUCCESS,wxLists);
         return ret;
     }
@@ -60,9 +60,9 @@ public class ListController {
 
     @RequestMapping("/modify")
     public Ret modify(WXList wxList){
-       List<WXList> wxLists = listService.save(wxList);
+       WXList wxLists = listService.save(wxList);
         Ret ret = null;
-        if (wxList.getOpen_id() == null){
+        if (wxList.getOpenId() == null){
             ret = new Ret(ListResult.ORDERID_NOT_FOUND,"");
             return ret;
         }

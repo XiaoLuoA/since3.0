@@ -17,7 +17,7 @@ public interface ListService {
      * @param wxList
      * @return
      */
-    List<WXList> save(WXList wxList);
+    WXList save(WXList wxList);
 
 
 

@@ -28,7 +28,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public List<WXList> findListByOpenId(String open_id) {
-        return listRepository.findAllByOpen_id(open_id);
+        return listRepository.findAllByOpenId(open_id);
     }
 
 

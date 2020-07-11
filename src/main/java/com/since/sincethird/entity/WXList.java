@@ -13,14 +13,31 @@ public class WXList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String book_id;
-    private String book_image;
-    private int book_price;
+
+    @Column(name="book_id")
+    private String bookId;
+
+    @Column(name="book_image")
+    private String bookImage;
+
+    @Column(name="book_price")
+    private int bookPrice;
+
+    @Column(name="book_num")
     private int book_num;
+
+
     private int status;
-    private String wx_name;
-    private String wx_image;
-    private String open_id;
+
+    @Column(name="wx_name")
+    private String wxName;
+
+    @Column(name="wx_image")
+    private String wxImage;
+
+    @Column(name="open_id")
+    private String openId;
+
     private String address;
     private int total;
 

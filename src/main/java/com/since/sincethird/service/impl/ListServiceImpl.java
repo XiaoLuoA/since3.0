@@ -21,14 +21,14 @@ public class ListServiceImpl implements ListService {
     private ListRepository listRepository;
 
     @Override
-    public List<WXList> save(WXList wxList) {
+    public WXList save(WXList wxList) {
         return listRepository.save(wxList);
     }
 
 
     @Override
     public List<WXList> findListByOpenId(String open_id) {
-        return listRepository.findAllByOpen_id(open_id);
+        return listRepository.findAllByOpenId(open_id);
     }
 
 

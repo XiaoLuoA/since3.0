@@ -21,7 +21,8 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
      * @return
      */
     @Override
-     List<WXList> save(WXList wxList);
+     WXList save(WXList wxList);
+
 
 
     /**
@@ -29,7 +30,7 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
      * @param open_id
      * @return
      */
-    List<WXList> findAllByOpen_id(String open_id);
+    List<WXList> findAllByOpenId(String open_id);
 
 
 

@@ -24,7 +24,7 @@ public class WXList {
     private int bookPrice;
 
     @Column(name="book_num")
-    private int book_num;
+    private int bookNum;
 
 
     private int status;

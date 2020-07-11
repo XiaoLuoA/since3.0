@@ -26,11 +26,20 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
 
 
     /**
-     * 通过id查找用户订单
+     * 通过openid查找用户订单
      * @param open_id
      * @return
      */
     List<WXList> findAllByOpenId(String open_id);
+
+
+    /**
+     * 通过订单id查找订单
+     * @param id
+     * @return
+     */
+
+    WXList findWXListById(Long id);
 
 
 

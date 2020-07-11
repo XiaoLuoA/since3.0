@@ -20,6 +20,9 @@ public class WXList {
     @Column(name="book_image")
     private String bookImage;
 
+    @Column(name="book_name")
+    private String bookName;
+
     @Column(name="book_price")
     private int bookPrice;
 

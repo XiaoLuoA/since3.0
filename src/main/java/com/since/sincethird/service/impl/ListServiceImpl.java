@@ -6,6 +6,7 @@ import com.since.sincethird.repository.ListRepository;
 import com.since.sincethird.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author 王英豪111
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ListServiceImpl implements ListService {
 
 
@@ -31,6 +33,10 @@ public class ListServiceImpl implements ListService {
         return listRepository.findAllByOpenId(open_id);
     }
 
+    @Override
+    public WXList findWXListById(Long id) {
+        return listRepository.findWXListById(id);
+    }
 
 
 }

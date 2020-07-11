@@ -30,6 +30,14 @@ public interface ListService {
 
 
 
+    /**
+     * 通过订单id查找订单
+     * @param id
+     * @return
+     */
+
+    WXList findWXListById(Long id);
+
 
 
 }

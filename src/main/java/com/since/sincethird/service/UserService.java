@@ -1,6 +1,7 @@
 package com.since.sincethird.service;
 
 import com.since.sincethird.entity.WXUser;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 
 public interface UserService {
@@ -11,7 +12,7 @@ public interface UserService {
      */
     WXUser findById(Long id);
 
-    WXUser save(WXUser WXUser);
+    WXUser save(WxMpUser WXUser);
 
     WXUser findByOpenId(String OpenId);
 

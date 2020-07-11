@@ -1,0 +1,29 @@
+spring:
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://47.94.167.203/since?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 19980715
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  devtools:
+    restart:
+      enabled: true
+  resources:
+     static-locations: classpath:templates/
+  mvc:
+    static-path-pattern: /**
+  #  微信配置
+wx:
+  mp:
+    configs:
+      - appId:  wx55cd46481d4e28d6
+        secret: 77fc6fc8fd2fb85d8c4f7c5b5dba5fd4
+        token: 123456
+        aesKey: yzJVNFDeIUyYMAWt8dBoFaWtSyAhdlfhWUSfSwi0ktD
+  pay:
+    appId: wx55cd46481d4e28d6
+    mchId: 1525764481
+    mchKey: rghjiklopuyhbnjhgtrfgh54lkjhg52d
+    keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+
+

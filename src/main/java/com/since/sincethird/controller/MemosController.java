@@ -1,8 +1,7 @@
 package com.since.sincethird.controller;
 
-import com.since.sincethird.common.MemosResult;
-import com.since.sincethird.common.Ret;
-import com.since.sincethird.common.UserResult;
+import com.since.sincethird.ret.MemosResult;
+import com.since.sincethird.ret.Ret;
 import com.since.sincethird.entity.WXMemos;
 import com.since.sincethird.service.MemosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-import static com.since.sincethird.common.MemosResult.*;
+import static com.since.sincethird.ret.MemosResult.*;
 
 /**
  * @author jayzh

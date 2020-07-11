@@ -10,11 +10,11 @@ import lombok.Getter;
 public class Code {
     String code;
     String errMsg;
-    Code(String code,String errMsg){
+    public Code(String code,String errMsg){
         this.code = code;
         this.errMsg = errMsg;
     };
-    Code(String code){
+    public Code(String code){
         this.code = code;
     };
 }

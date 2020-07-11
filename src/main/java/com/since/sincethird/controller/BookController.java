@@ -38,7 +38,7 @@ public class BookController {
             Ret ret = new Ret(Result.SUCCESS, book);
             return ret;
         }else{
-            Ret ret = new Ret(BookResult.NOT_FIND_ERROR, book);
+            Ret ret = new Ret(BookResult.Book_NOT_FIND, book);
             return ret;
         }
 

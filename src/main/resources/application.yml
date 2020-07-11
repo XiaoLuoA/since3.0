@@ -22,8 +22,8 @@ wx:
         aesKey: yzJVNFDeIUyYMAWt8dBoFaWtSyAhdlfhWUSfSwi0ktD
   pay:
     appId: wx55cd46481d4e28d6
-    mchId: #微信支付商户号
-    mchKey: #微信支付商户密钥
+    mchId: 1525764481
+    mchKey: rghjiklopuyhbnjhgtrfgh54lkjhg52d
     keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
 
 

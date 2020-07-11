@@ -1,8 +1,10 @@
 package com.since.sincethird.service.impl;
 
+import com.since.sincethird.common.Status;
 import com.since.sincethird.entity.WXUser;
 import com.since.sincethird.repository.UsersRep;
 import com.since.sincethird.service.UserService;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public WXUser save(WXUser WXUser) {
-        return usersRep.save(WXUser);
+    public WXUser save(WxMpUser user) {
+        WXUser wxUser = findByOpenId(user.getOpenId());
+        if (null == wxUser){
+            wxUser.setOpenId(user.getOpenId());
+            wxUser.setWxAddress(user.getProvince()+user.getCity());
+            wxUser.setWxName(user.getNickname());
+            wxUser.setStatus(Status.NORMAL);
+            wxUser.setWxImage(user.getHeadImgUrl());
+            return usersRep.save(wxUser);
+        }
+        return wxUser;
     }
 
     @Override

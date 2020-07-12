@@ -31,5 +31,17 @@ public class BookServiceImpl implements BookService {
         return bookRep.save(book);
     }
 
+    @Override
+    public List<Book> findAllByBookName(String bookName) {
+
+        List<Book> bookList =  bookRep.findAllByBooknameLike(bookName);
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).getBookstatus() != 1){
+                bookList.remove(i);
+            }
+        }
+        return bookList;
+    }
+
 
 }

@@ -30,4 +30,13 @@ public interface BookService {
      */
     Book save(Book book);
 
+
+
+    /**
+     * bookName模糊查询
+     * @param bookName
+     * @return
+     */
+    List<Book> findAllByBookName(String bookName);
+
 }

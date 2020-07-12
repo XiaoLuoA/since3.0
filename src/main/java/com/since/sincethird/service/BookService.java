@@ -36,7 +36,7 @@ public interface BookService {
      * @param bookNumb
      * @return int
      */
-    Integer updateSetBookClick(Long bookNumb);
+    Boolean updateSetBookClick(Long bookNumb);
 
     /** drj
      * 查找Book,点击+1

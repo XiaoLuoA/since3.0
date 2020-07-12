@@ -32,13 +32,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Integer updateSetBookClick(Long bookNumb) {
+    public Boolean updateSetBookClick(Long bookNumb) {
         int flag=bookRep.updateSetBookClick(bookNumb);
-        if (flag>0){
-            return  flag;
-        }else{
-            return 0;
-        }
+        return  flag>0;
+
 
     }
 

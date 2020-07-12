@@ -1,6 +1,6 @@
-a {
+div {
   color: red;
 }
-a a {
+div div {
   color: blue;
 }

@@ -45,7 +45,10 @@ public class BookServiceImpl implements BookService {
         return bookRep.findById(bookNumb).get();
     }
 
-
+    @Override
+    public List<Book> findAllByBookName(String bookName) {
+        return null;
+    }
 
 
 }

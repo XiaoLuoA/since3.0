@@ -1,6 +1,7 @@
 package com.since.sincethird.service;
 
 import com.since.sincethird.entity.Book;
+import com.since.sincethird.repository.BookRep;
 
 import java.util.List;
 
@@ -29,6 +30,13 @@ public interface BookService {
      * @return
      */
     Book save(Book book);
+
+    /**
+     * 查找Book,Set点击+1
+     *
+     *
+     */
+    Boolean setBookClickAdd(Long bookNumb);
 
     /**
      * 查找Book,点击+1

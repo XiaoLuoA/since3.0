@@ -32,6 +32,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Boolean setBookClickAdd(Long bookNumb) {
+        int flag=bookRep.setBookClickAdd(bookNumb);
+        return flag>0;
+    }
+
+    @Override
     public Book addClick(Long bookNumb) {
         Book  book =findById(bookNumb);
         book.setBookclick((book.getBookclick()+1));

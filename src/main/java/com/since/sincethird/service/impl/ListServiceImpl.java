@@ -6,8 +6,6 @@ import com.since.sincethird.repository.ListRepository;
 import com.since.sincethird.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -15,23 +13,59 @@ import java.util.List;
  * @author 王英豪111
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
+
 public class ListServiceImpl implements ListService {
 
 
     @Autowired
     private ListRepository listRepository;
 
+    @Autowired
+    private BookServiceImpl bookService;
+
+    private WXList wxList;
+
     @Override
     public WXList save(WXList wxList) {
+        Long book_id = Long.valueOf(wxList.getBookId());
+        Book book = bookService.findById(book_id);
+        synchronized (book){
+            if ( wxList.getBookNum() > book.getBookcount()){
+                return null;
+            } else if(book.getBookcount() - wxList.getBookNum() == 0){
+                book.setBookstatus(2);
+            }
+            //修改book库存
+            book.setBookcount(book.getBookcount() - wxList.getBookNum());
+            bookService.save(book);
+        }
+        return wxList;
+    }
+
+    @Override
+    public WXList pay(WXList wxList, String WXcode) {
+        Long book_id = Long.valueOf(wxList.getBookId());
+        Book book = bookService.findById(book_id);
+         if (WXcode == "fail" ){
+                //库存返回原来的数量
+             book.setBookcount(book.getBookcount() + wxList.getBookNum());
+             bookService.save(book);
+             return null;
+          }
+
+        //成功，添加订单总金额
+        wxList.setTotal(wxList.getBookNum() * wxList.getBookPrice());
         return listRepository.save(wxList);
     }
+
+
 
 
     @Override
     public List<WXList> findListByOpenId(String open_id) {
         return listRepository.findAllByOpenId(open_id);
     }
+
 
     @Override
     public WXList findWXListById(Long id) {

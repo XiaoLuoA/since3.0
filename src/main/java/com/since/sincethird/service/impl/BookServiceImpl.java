@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author 王英豪111
+ */
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
@@ -22,4 +25,11 @@ public class BookServiceImpl implements BookService {
     public Book findById(Long id) {
         return bookRep.findById(id).get();
     }
+
+    @Override
+    public Book save(Book book) {
+        return bookRep.save(book);
+    }
+
+
 }

@@ -30,11 +30,19 @@ public interface BookService {
      */
     Book save(Book book);
 
-    /**
+
+    /** drj
      * 查找Book,点击+1
      * @param bookNumb
-     * @return
+     * @return int
      */
-    Book addClick(Long bookNumb);
+    Integer updateSetBookClick(Long bookNumb);
+
+    /** drj
+     * 查找Book,点击+1
+     * @param bookNumb
+     * @return Book
+     */
+    Book addClick (Long bookNumb);
 
 }

@@ -31,5 +31,13 @@ public class BookServiceImpl implements BookService {
         return bookRep.save(book);
     }
 
+    @Override
+    public Book addClick(Long bookNumb) {
+        Book  book =findById(bookNumb);
+        book.setBookclick((book.getBookclick()+1));
+        save(book);
+        return  book;
+    }
+
 
 }

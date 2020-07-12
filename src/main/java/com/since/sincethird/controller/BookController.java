@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/book")
@@ -41,8 +42,24 @@ public class BookController {
             Ret ret = new Ret(BookResult.Book_NOT_FIND, book);
             return ret;
         }
+    }
+
+        @RequestMapping("/addClick")
+        @ResponseBody
+        public Ret addClick(Long bookNumb) {
+            Book book=null;
+            try{
+                book = bookService.addClick(bookNumb);
+            }
+           catch(NoSuchElementException e){
+               Ret ret = new Ret(BookResult.Book_NOT_FIND, book);
+               return ret;
+           }
+            Ret ret = new Ret(Result.SUCCESS, book);
+            return ret;
 
     }
+
         @RequestMapping("/findAllByBookName")
         @ResponseBody
         public Ret findAllByBookName(String bookName){
@@ -51,10 +68,12 @@ public class BookController {
                 Ret ret = new Ret(BookResult.Book_NOT_FIND, null);
                 return ret;
             }
+            Ret ret = new Ret(Result.SUCCESS,bookList);
+            return ret;
 
-         Ret ret = new Ret(Result.SUCCESS,bookList);
-        return ret;
+        }
+
     }
 
 
-}
+

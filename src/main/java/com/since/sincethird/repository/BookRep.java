@@ -28,7 +28,7 @@ public interface BookRep extends JpaRepository<Book,Long> {
      * @param Bookname
      * @return
      */
-    @Query(value = "select * from book where Bookname like %?1% ",nativeQuery = true)
+    @Query(value = "select * from book where Bookname like %?1% and Bookstatus = 1",nativeQuery = true)
     List<Book> findAllByBooknameLike(String Bookname);
 
 

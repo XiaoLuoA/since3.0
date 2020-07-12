@@ -32,14 +32,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book addClick(Long bookNumb) {
+        Book  book =findById(bookNumb);
+        book.setBookclick((book.getBookclick()+1));
+        save(book);
+        return  book;
+    }
+
+    @Override
     public List<Book> findAllByBookName(String bookName) {
 
         List<Book> bookList =  bookRep.findAllByBooknameLike(bookName);
-        for (int i = 0; i < bookList.size(); i++) {
-            if (bookList.get(i).getBookstatus() != 1){
-                bookList.remove(i);
-            }
-        }
         return bookList;
     }
 

@@ -1,4 +1,6 @@
-package com.since.sincethird.common;
+package com.since.sincethird.ret;
+
+import com.since.sincethird.common.Code;
 
 /**
  * @author jayzh

@@ -23,5 +23,5 @@ public class WXUser {
 
     String wxAddress;
 
-    int status;
+    Integer status;
 }

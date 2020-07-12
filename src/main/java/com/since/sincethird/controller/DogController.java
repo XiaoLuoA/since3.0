@@ -1,7 +1,7 @@
 package com.since.sincethird.controller;
 
-import com.since.sincethird.common.Ret;
-import com.since.sincethird.common.UserResult;
+import com.since.sincethird.ret.Ret;
+import com.since.sincethird.ret.UserResult;
 import com.since.sincethird.entity.Dog;
 import com.since.sincethird.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;

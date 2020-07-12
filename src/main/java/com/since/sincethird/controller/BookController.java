@@ -1,9 +1,9 @@
 package com.since.sincethird.controller;
 
 
-import com.since.sincethird.common.BookResult;
-import com.since.sincethird.common.Result;
-import com.since.sincethird.common.Ret;
+import com.since.sincethird.ret.BookResult;
+import com.since.sincethird.ret.Result;
+import com.since.sincethird.ret.Ret;
 import com.since.sincethird.entity.Book;
 import com.since.sincethird.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;

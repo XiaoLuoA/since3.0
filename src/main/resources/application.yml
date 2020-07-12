@@ -1,5 +1,5 @@
 spring:
-  # Êı¾İ¿âÅäÖÃ
+  # æ•°æ®åº“é…ç½®
   datasource:
     url: jdbc:mysql://47.94.167.203/since?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
@@ -12,7 +12,7 @@ spring:
      static-locations: classpath:templates/
   mvc:
     static-path-pattern: /**
-  #  Î¢ĞÅÅäÖÃ
+  #  å¾®ä¿¡é…ç½®
 wx:
   mp:
     configs:
@@ -24,6 +24,6 @@ wx:
     appId: wx55cd46481d4e28d6
     mchId: 1525764481
     mchKey: rghjiklopuyhbnjhgtrfgh54lkjhg52d
-    keyPath: # p12Ö¤ÊéµÄÎ»ÖÃ£¬¿ÉÒÔÖ¸¶¨¾ø¶ÔÂ·¾¶£¬Ò²¿ÉÒÔÖ¸¶¨ÀàÂ·¾¶£¨ÒÔclasspath:¿ªÍ·£©
+    keyPath: # p12è¯ä¹¦çš„ä½ç½®ï¼Œå¯ä»¥æŒ‡å®šç»å¯¹è·¯å¾„ï¼Œä¹Ÿå¯ä»¥æŒ‡å®šç±»è·¯å¾„ï¼ˆä»¥classpath:å¼€å¤´ï¼‰
 
 

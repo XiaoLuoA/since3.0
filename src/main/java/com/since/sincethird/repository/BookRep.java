@@ -7,9 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 王英豪111
+ */
 @Repository
 public interface BookRep extends JpaRepository<Book,Long> {
 
-
+    /**
+     * 修改book库存
+     * @param book
+     * @return
+     */
+    @Override
+    Book save(Book book);
 
 }

@@ -25,7 +25,7 @@ public class ListServiceImpl implements ListService {
 
 
     @Override
-    public WXList add(WXList wxList) {
+    public WXList save(WXList wxList) {
         Long book_id = Long.valueOf(wxList.getBookId());
         Book book = bookService.findById(book_id);
         int n = book.getBookcount() - wxList.getBookNum();

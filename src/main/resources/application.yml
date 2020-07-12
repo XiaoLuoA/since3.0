@@ -9,8 +9,11 @@ spring:
     restart:
       enabled: true
   resources:
-     static-locations: classpath:templates/
+     static-locations: classpath:/static, classpath:/static/page
   mvc:
+    view:
+      prefix: /
+      suffix: .html
     static-path-pattern: /**
   #  微信配置
 wx:

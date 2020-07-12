@@ -29,13 +29,13 @@ public class UserController{
 
     @RequestMapping("/index")
     public String index(){
-        return "page/user/index.html";
+        return "user/index";
     }
 
 
     @RequestMapping("/login")
     @ResponseBody
-    public Ret add(Long id){
+    public Ret add(){
         WXUser wxUser = (WXUser)(httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_USER));
         Ret ret ;
         if (wxUser==null){

@@ -37,4 +37,13 @@ public interface BookService {
      */
     Book addClick(Long bookNumb);
 
+
+
+    /**
+     * bookName模糊查询
+     * @param bookName
+     * @return
+     */
+    List<Book> findAllByBookName(String bookName);
+
 }

@@ -44,6 +44,24 @@ public interface ListService {
 
 
 
+    /**
+     * 修改订单状态
+     * @param wxList
+     * @return
+     */
+    WXList modifyList(WXList wxList);
+
+
+
+    /**
+     * 删除订单状态（状态改为-1）
+     * @param wxList
+     * @return
+     */
+    WXList deleteList(WXList wxList);
+
+
+
 
 
 

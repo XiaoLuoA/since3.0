@@ -1,5 +1,6 @@
 package com.since.sincethird.service.impl;
 
+import com.since.sincethird.common.Status;
 import com.since.sincethird.entity.Book;
 import com.since.sincethird.entity.WXList;
 import com.since.sincethird.repository.ListRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author 王英豪111
@@ -39,6 +41,12 @@ public class ListServiceImpl implements ListService {
             book.setBookcount(n);
             bookService.save(book);
         }
+        Long time = System.currentTimeMillis();
+        String no = time + String.valueOf(new Random().nextInt(899) + 100);
+        wxList.setNo(no);
+        wxList.setBookImage(book.getBookimage1());
+        wxList.setBookName(book.getBookname());
+        wxList.setBookPrice(book.getBookprice());
         return wxList;
     }
 
@@ -70,6 +78,18 @@ public class ListServiceImpl implements ListService {
     @Override
     public WXList findWXListById(Long id) {
         return listRepository.findWXListById(id);
+    }
+
+    @Override
+    public WXList modifyList(WXList wxList) {
+        wxList.setStatus(Status.WxList_NotPay);
+        return listRepository.save(wxList);
+    }
+
+    @Override
+    public WXList deleteList(WXList wxList) {
+        wxList.setStatus(Status.WxList_Delete);
+        return listRepository.save(wxList);
     }
 
 

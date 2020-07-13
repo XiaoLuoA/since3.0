@@ -46,6 +46,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public boolean addStock(Integer buyQuantity, Integer id) {
+        return bookRep.addStock(buyQuantity,id) > 0;
+    }
+
+    @Override
     public Book findById(Long id) {
         return bookRep.findById(id).orElse(null);
     }

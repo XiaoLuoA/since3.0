@@ -2,7 +2,10 @@ package com.since.sincethird.repository;
 
 import com.since.sincethird.entity.WXList;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,7 +34,7 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
     List<WXList> findAllByOpenId(String open_id);
 
 
-
+    WXList findByNo(String no);
     /**
      * 通过订单id查找订单
      * @param id
@@ -40,7 +43,8 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
 
     WXList findWXListById(Long id);
 
-
-
-
+    @Transactional
+    @Modifying
+    @Query(value = "update wx_list set status=?2 where no=?1",nativeQuery = true)
+    Integer updateStatus(String no, Integer status);
 }

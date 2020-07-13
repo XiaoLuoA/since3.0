@@ -15,6 +15,13 @@ public interface BookService {
     boolean updateStock(Integer buyQuantity, Integer id, Integer oldValue);
 
     /**
+     *
+     * @param buyQuantity 書的數量
+     * @param id 書籍的id
+     * @return
+     */
+    boolean addStock(Integer buyQuantity,Integer id);
+    /**
      * 查找全部book
      * @return
      */

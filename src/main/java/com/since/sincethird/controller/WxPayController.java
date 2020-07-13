@@ -12,13 +12,16 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.util.SignUtils;
 import com.since.sincethird.common.SessionKey;
+import com.since.sincethird.common.Status;
 import com.since.sincethird.dto.Attach;
 import com.since.sincethird.entity.WXList;
 import com.since.sincethird.entity.WXUser;
 import com.since.sincethird.ret.BookResult;
 import com.since.sincethird.ret.Result;
 import com.since.sincethird.ret.Ret;
+import com.since.sincethird.service.BookService;
 import com.since.sincethird.service.ListService;
+import com.since.sincethird.service.WXPayService;
 import com.since.sincethird.util.OrderUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +117,12 @@ public class WxPayController {
   @Autowired
   ListService listService;
 
+//  @Autowired
+//  BookService bookService;
+
+  @Autowired
+  WXPayService wxPayService;
+
   /**
    * 统一下单(详见https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1)
    * 在发起微信支付前，需要调用统一下单接口，获取"预支付交易会话标识"
@@ -200,10 +209,20 @@ public class WxPayController {
   // "支付回调通知处理"
   @PostMapping("/notify/order")
   public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
+    System.out.println("-----接收到腾讯回调函数----");
     final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
     // TODO 根据自己业务场景需要构造返回对象
-    System.out.println("success");
-    return WxPayNotifyResponse.success("成功");
+    try{
+      boolean flag = wxPayService.handleWXResp(notifyResult);
+      if (flag){
+        System.out.println(flag);
+      }
+      return WxPayNotifyResponse.success("成功");
+    }catch (Exception e){
+      e.printStackTrace();
+      System.out.println(JSON.toJSONString(notifyResult));
+      return WxPayNotifyResponse.success("成功");
+    }
   }
 
   //"退款回调通知处理"
@@ -219,6 +238,7 @@ public class WxPayController {
   public String parseScanPayNotifyResult(String xmlData) throws WxPayException {
     final WxScanPayNotifyResult result = this.wxService.parseScanPayNotifyResult(xmlData);
     // TODO 根据自己业务场景需要构造返回对象
+
     return WxPayNotifyResponse.success("成功");
   }
 

@@ -83,7 +83,7 @@ public class ListServiceImpl implements ListService {
         wxList.setAddress(attach.getAddr());
         wxList.setPhone(attach.getTel());
         wxList.setWxImage(wxImage);
-        wxList.setStatus(Status.NORMAL);
+        wxList.setStatus(Status.WX_LIST_NOT_PAY);
         wxList.setBookId(attach.getBookId());
         Book book = bookService.findById(Long.parseLong(attach.getBookId()));
         wxList.setTotal(book.getBookprice()*attach.getBuyNum());
@@ -100,7 +100,7 @@ public class ListServiceImpl implements ListService {
         request.setTradeType("JSAPI");
         request.setSignType("MD5");
         request.setBody("since-book");
-        request.setNotifyUrl(Config.HOST +"/pay/unifiedOrder");
+        request.setNotifyUrl(Config.HOST +"/pay/notify/order");
         request.setSpbillCreateIp(remoteAddr);
         request.setOutTradeNo(no);
         request.setTotalFee(total);
@@ -138,14 +138,25 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
+    public WXList findByNo(String no) {
+        return listRepository.findByNo(no);
+    }
+
+
+    @Override
+    public boolean modifyList(String id,Integer status) {
+        return listRepository.updateStatus(id,status) > 0;
+    }
+
+    @Override
     public WXList modifyList(WXList wxList) {
-        wxList.setStatus(Status.WxList_NotPay);
+        wxList.setStatus(Status.WX_LIST_NOT_PAY);
         return listRepository.save(wxList);
     }
 
     @Override
     public WXList deleteList(WXList wxList) {
-        wxList.setStatus(Status.WxList_Delete);
+        wxList.setStatus(Status.WX_LIST_DELETE);
         return listRepository.save(wxList);
     }
 

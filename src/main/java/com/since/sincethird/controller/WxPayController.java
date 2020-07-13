@@ -12,7 +12,14 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.util.SignUtils;
 import com.since.sincethird.common.SessionKey;
+import com.since.sincethird.dto.Attach;
+import com.since.sincethird.entity.WXList;
 import com.since.sincethird.entity.WXUser;
+import com.since.sincethird.ret.BookResult;
+import com.since.sincethird.ret.Result;
+import com.since.sincethird.ret.Ret;
+import com.since.sincethird.service.ListService;
+import com.since.sincethird.util.OrderUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
+
 
 
 /**
@@ -103,29 +111,41 @@ public class WxPayController {
   @Autowired
   HttpServletRequest httpServletRequest;
 
+  @Autowired
+  ListService listService;
+
   /**
    * 统一下单(详见https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1)
    * 在发起微信支付前，需要调用统一下单接口，获取"预支付交易会话标识"
    * 接口地址：https://api.mch.weixin.qq.com/pay/unifiedorder
    *
-   * @param request 请求对象，注意一些参数如appid、mchid等不用设置，方法内会自动从配置对象中获取到（前提是对应配置中已经设置）
+   * @param attach 请求对象，注意一些参数如appid、mchid等不用设置，方法内会自动从配置对象中获取到（前提是对应配置中已经设置）
    */
   //  "原生的统一下单接口"
   @PostMapping("/unifiedOrder")
-  public HashMap unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
+  public Ret unifiedOrder(@RequestBody Attach attach) throws WxPayException {
     WXUser wxUser = (WXUser) (httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_USER));
-    request.setOpenid(wxUser.getOpenId());
-    WxPayUnifiedOrderResult ret = this.wxService.unifiedOrder(request);
-    HashMap map = new HashMap();
-    map.put("appId",ret.getAppid());
-    map.put("timeStamp",System.currentTimeMillis()/1000+"");
-    map.put("nonceStr",ret.getNonceStr());
-    map.put("package","prepay_id="+ret.getPrepayId());
-    map.put("signType","MD5");
-    String sign = SignUtils.createSign(map,"MD5","rghjiklopuyhbnjhgtrfgh54lkjhg52d",new String[0]);
-    map.put("sign",sign);
-    System.out.println(map);
-    return map;
+    String openid = wxUser.getOpenId();
+    String no = OrderUtil.genOrderNo();
+    String wxImage = wxUser.getWxImage();
+    WXList wxList = listService.add(openid,attach.getAddr(),attach.getTel(),attach.getBookId(),attach.getBuyNum(),wxImage);
+    WXList saveList = listService.buy(wxList);
+    if (saveList!=null){
+      WxPayUnifiedOrderRequest wxPayUnifiedOrder = listService.getWxPayUnifiedOrder(openid, httpServletRequest.getRemoteAddr(), no, wxList.getTotal());
+      WxPayUnifiedOrderResult ret = this.wxService.unifiedOrder(wxPayUnifiedOrder);
+      HashMap map = new HashMap();
+      map.put("appId",ret.getAppid());
+      map.put("timeStamp",System.currentTimeMillis()/1000+"");
+      map.put("nonceStr",ret.getNonceStr());
+      map.put("package","prepay_id="+ret.getPrepayId());
+      map.put("signType","MD5");
+      String sign = SignUtils.createSign(map,"MD5","rghjiklopuyhbnjhgtrfgh54lkjhg52d",new String[0]);
+      map.put("sign",sign);
+      System.out.println(map);
+      return new Ret(Result.SUCCESS,map);
+    }else {
+      return new Ret(BookResult.Book_NOT_ENOUGH,null);
+    }
   }
 
   /**

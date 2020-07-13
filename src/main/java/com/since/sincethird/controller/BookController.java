@@ -35,7 +35,7 @@ public class BookController {
     public Ret findBookById(Long id) {
         Book book=null;
         try{
-             book = bookService.findById(id);
+            book = bookService.findById(id);
         }
         catch(NoSuchElementException e){
             Ret ret = new Ret(BookResult.Book_NOT_FIND, book);
@@ -43,8 +43,7 @@ public class BookController {
         }
         Ret ret = new Ret(Result.SUCCESS, book);
         return ret;
-        }
-
+    }
 
         @RequestMapping("/addClick")
         @ResponseBody

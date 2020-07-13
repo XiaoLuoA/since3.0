@@ -1,5 +1,7 @@
 package com.since.sincethird.service;
 
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.since.sincethird.dto.Attach;
 import com.since.sincethird.entity.WXList;
 
 import java.util.List;
@@ -17,6 +19,8 @@ public interface ListService {
      */
     WXList save(WXList wxList);
 
+
+    WXList preList(String openid, Attach attach,String wxImage);
 
     /**
      * 支付订单
@@ -43,6 +47,26 @@ public interface ListService {
      */
 
     WXList findWXListById(Long id);
+
+
+    WxPayUnifiedOrderRequest getWxPayUnifiedOrder(String openid,
+                                                  String remoteAddr,String no,int total);
+
+    /**
+     * 修改订单状态
+     * @param wxList
+     * @return
+     */
+    WXList modifyList(WXList wxList);
+
+
+
+    /**
+     * 删除订单状态（状态改为-1）
+     * @param wxList
+     * @return
+     */
+    WXList deleteList(WXList wxList);
 
 
 

@@ -59,6 +59,20 @@ public class ListController {
         return ret;
     }
 
+    @RequestMapping("/buy")
+    @ResponseBody
+    public Ret buy(@RequestBody WXList wxList){
+        Ret ret;
+        WXList wxList1 = listService.buy(wxList);
+        if (wxList1 == null){
+            ret = new Ret(ListResult.LIST_PAY_FAIL,"");
+            return ret;
+        }
+
+        ret = new Ret(Result.SUCCESS,wxList1);
+        return ret;
+    }
+
 
 
 

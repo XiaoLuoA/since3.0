@@ -149,5 +149,10 @@ public class ListServiceImpl implements ListService {
         return listRepository.save(wxList);
     }
 
+    @Override
+    public List<WXList> findAllWXList() {
+        return listRepository.findAll();
+    }
+
 
 }

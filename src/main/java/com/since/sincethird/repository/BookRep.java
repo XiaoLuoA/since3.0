@@ -36,7 +36,7 @@ public interface BookRep extends JpaRepository<Book,Long> {
     List<Book> findAllByBooknameLike(String Bookname);
 
     /**
-     * 修改book库存
+     * 更新book的点击量+1
      */
     @Transactional
     @Modifying

@@ -71,6 +71,8 @@ public interface ListService {
 
 
 
+    List<WXList> findAllWXList();
+
 
 
 

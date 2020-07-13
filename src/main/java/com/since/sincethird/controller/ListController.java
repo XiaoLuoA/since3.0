@@ -127,4 +127,12 @@ public class ListController {
 
         return ret;
     }
+
+    @RequestMapping("/findAllWxlist")
+    @ResponseBody
+    public Ret findAllWxlist(){
+        List<WXList> wxLists = listService.findAllWXList();
+        Ret ret = new Ret(Result.SUCCESS,wxLists);
+        return ret;
+    }
 }

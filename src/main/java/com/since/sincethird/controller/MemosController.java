@@ -36,7 +36,7 @@ public class MemosController {
             return ret;
         }
         WXMemos xWMemos=memosService.save(wXMemos);
-        ret= new Ret(MemosResult.SUCCESS,xWMemos);
+        ret= new Ret(SUCCESS,xWMemos);
         return ret;
     }
 
@@ -46,10 +46,30 @@ public class MemosController {
         List<WXMemos> allMemos=memosService.findAllMemos();
         Ret ret;
         if (allMemos.size()<1){
-            ret= new Ret(MemosResult.MEMOS_GET_IS_NULL,null);
+            ret= new Ret(MEMOS_GET_IS_NULL,null);
             return ret;
         }
-        ret= new Ret(MemosResult.SUCCESS,allMemos);
+        ret= new Ret(SUCCESS,allMemos);
         return ret;
     }
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Ret deleteMemos(String  id){
+        System.out.println("前台获得"+id);
+        Ret ret;
+        Integer mid=null;
+        try{
+            mid=Integer.parseInt(id);
+        }catch (Exception e){
+            ret= new Ret(MEMOS_ID_GET_FAIL,null);
+        }
+       try{
+           memosService.deleteById(mid);
+       }catch (Exception e){
+           ret= new Ret(MEMOS_NOT_EXIT,null);
+       }
+        ret= new Ret(SUCCESS,"删除成功");
+        return ret;
+    }
+
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MemosRepository extends JpaRepository<WXMemos,Integer> {
+    @Override
+    public void deleteById(Integer id);
 }

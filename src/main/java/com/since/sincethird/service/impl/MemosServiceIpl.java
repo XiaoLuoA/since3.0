@@ -33,4 +33,9 @@ public class MemosServiceIpl implements MemosService {
     public List<WXMemos> findAllMemos() {
         return memosRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        memosRepository.deleteById(id);
+    }
 }

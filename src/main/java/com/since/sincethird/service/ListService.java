@@ -20,7 +20,7 @@ public interface ListService {
     WXList save(WXList wxList);
 
 
-    WXList add(String openid, String addr,String tel,String bookId,Integer bookNum,String wxImage);
+    WXList preList(String openid, Attach attach,String wxImage);
 
     /**
      * 支付订单
@@ -49,7 +49,8 @@ public interface ListService {
     WXList findWXListById(Long id);
 
 
-    WxPayUnifiedOrderRequest getWxPayUnifiedOrder(String openid, String remoteAddr, String no, int total);
+    WxPayUnifiedOrderRequest getWxPayUnifiedOrder(String openid,
+                                                  String remoteAddr,String no,int total);
 
     /**
      * 修改订单状态

@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.since.sincethird.common.Config;
 import com.since.sincethird.common.Status;
+import com.since.sincethird.dto.Attach;
 import com.since.sincethird.entity.Book;
 import com.since.sincethird.entity.WXList;
 import com.since.sincethird.repository.ListRepository;
 import com.since.sincethird.service.ListService;
+import com.since.sincethird.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,18 +76,20 @@ public class ListServiceImpl implements ListService {
 
 
     @Override
-    public WXList add(String openid, String addr,String tel,String bookId,Integer bookNum,String wxImage){
+    public WXList preList(String openid, Attach attach, String wxImage){
         WXList wxList = new WXList();
+        wxList.setNo(OrderUtil.genOrderNo());
         wxList.setOpenId(openid);
-        wxList.setAddress(addr);
+        wxList.setAddress(attach.getAddr());
+        wxList.setPhone(attach.getTel());
         wxList.setWxImage(wxImage);
         wxList.setStatus(Status.NORMAL);
-        wxList.setBookId(bookId);
-        Book book = bookService.findById(Long.parseLong(bookId));
-        wxList.setTotal(book.getBookprice()*bookNum);
+        wxList.setBookId(attach.getBookId());
+        Book book = bookService.findById(Long.parseLong(attach.getBookId()));
+        wxList.setTotal(book.getBookprice()*attach.getBuyNum());
         wxList.setBookImage(book.getBookimage1());
         wxList.setBookName(book.getBookname());
-        wxList.setBookNum(bookNum);
+        wxList.setBookNum(attach.getBuyNum());
         wxList.setBookPrice(book.getBookprice());
         return wxList;
     }

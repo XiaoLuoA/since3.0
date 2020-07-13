@@ -32,6 +32,10 @@ public class WXList {
 
     private int status;
 
+    private String no;
+
+    private String phone;
+
     @Column(name="wx_name")
     private String wxName;
 

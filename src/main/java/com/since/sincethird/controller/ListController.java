@@ -8,6 +8,8 @@ import com.since.sincethird.entity.Book;
 import com.since.sincethird.entity.WXList;
 import com.since.sincethird.service.BookService;
 import com.since.sincethird.service.ListService;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -80,6 +82,7 @@ public class ListController {
     @RequestMapping("/findListByOpenId")
     @ResponseBody
     public Ret findListByOpenId(String openId){
+
         List<WXList> wxLists = listService.findListByOpenId(openId);
         Ret ret = null;
         if (openId == null || "".equals(openId)){
@@ -102,8 +105,24 @@ public class ListController {
         }
         Long list_id = Long.valueOf(id);
         WXList wxList = listService.findWXListById(list_id);
-        wxList.setStatus(1);
-        WXList wxLists = listService.save(wxList);
+        WXList wxLists = listService.modifyList(wxList);
+        ret = new Ret(Result.SUCCESS,wxLists);
+
+        return ret;
+    }
+
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Ret detele(String id){
+        Ret ret = null;
+        if (id == null || "".equals(id)){
+            ret = new Ret(ListResult.LIST_ID_NOT_FOUND,"");
+            return ret;
+        }
+        Long list_id = Long.valueOf(id);
+        WXList wxList = listService.findWXListById(list_id);
+        WXList wxLists = listService.deleteList(wxList);
         ret = new Ret(Result.SUCCESS,wxLists);
 
         return ret;

@@ -1,8 +1,6 @@
 package com.since.sincethird.repository;
 
-import com.since.sincethird.entity.Book;
 import com.since.sincethird.entity.WXList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

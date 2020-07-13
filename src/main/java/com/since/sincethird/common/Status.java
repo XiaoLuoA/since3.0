@@ -9,4 +9,5 @@ public interface Status {
      Integer WxList_Delete = -1;
      Integer NORMAL = 1;
      Integer NOT_NORMAL = 0;
+     Integer BOOK_EMPTY = 2;
 }

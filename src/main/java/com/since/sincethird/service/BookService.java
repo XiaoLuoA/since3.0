@@ -1,6 +1,7 @@
 package com.since.sincethird.service;
 
 import com.since.sincethird.entity.Book;
+import com.since.sincethird.repository.BookRep;
 
 import java.util.List;
 
@@ -8,6 +9,10 @@ import java.util.List;
  * @author 王英豪111
  */
 public interface BookService {
+
+
+    boolean updateStock(Integer book_id, Integer listNum);
+    boolean updateStock(Integer buyQuantity, Integer id, Integer oldValue);
 
     /**
      * 查找全部book
@@ -29,6 +34,13 @@ public interface BookService {
      * @return
      */
     Book save(Book book);
+
+    /**
+     * 查找Book,Set点击+1
+     *
+     *
+     */
+    Boolean setBookClickAdd(Long bookNumb);
 
     /**
      * 查找Book,点击+1

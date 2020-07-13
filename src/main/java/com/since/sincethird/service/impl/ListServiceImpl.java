@@ -26,6 +26,34 @@ public class ListServiceImpl implements ListService {
     private WXList wxList;
 
     @Override
+    public synchronized WXList buy(WXList wxList) {
+        Integer book_id = Integer.valueOf(wxList.getBookId());
+        boolean b = bookService.updateStock(book_id,wxList.getBookNum());
+        if (b){
+            System.out.println("success");
+        }else {
+            System.out.println("error");
+        }
+        return wxList;
+//        Integer book_id = Integer.valueOf(wxList.getBookId());
+//        Book book = bookService.findById(book_id.longValue());
+//        int stock_num = book.getBookcount() - wxList.getBookNum();
+//        boolean flag =updateStock(wxList.getBookNum(),book_id,book.getBookcount());
+//
+//        while (!flag) {
+//            book = bookService.findById(book_id.longValue());
+//            if (book.getBookcount() > wxList.getBookNum()) {
+//                flag = updateStock(wxList.getBookNum(),book_id,book.getBookcount());
+//            } else {
+//                System.out.println("error");
+//                return null;
+//            }
+//        }
+//        System.out.println("success");
+//        return wxList;
+    }
+
+    @Override
     public WXList save(WXList wxList) {
         Long book_id = Long.valueOf(wxList.getBookId());
         Book book = bookService.findById(book_id);

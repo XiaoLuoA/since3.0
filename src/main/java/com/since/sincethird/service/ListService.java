@@ -25,6 +25,8 @@ public interface ListService {
      */
     WXList pay(WXList wxList, String WXcode);
 
+    WXList buy(WXList wxList);
+
     /**
      * 根据openid查找订单
      * @param open_id

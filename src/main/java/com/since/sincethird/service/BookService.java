@@ -9,6 +9,10 @@ import java.util.List;
  */
 public interface BookService {
 
+
+    boolean updateStock(Integer book_id, Integer listNum);
+    boolean updateStock(Integer buyQuantity, Integer id, Integer oldValue);
+
     /**
      * 查找全部book
      * @return

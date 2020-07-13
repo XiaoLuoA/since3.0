@@ -18,6 +18,11 @@ public interface BookRep extends JpaRepository<Book,Long> {
     @Query(value = "update book set Bookcount = (Bookcount - ?1) where Booknumb = ?2 and Bookcount = ?3", nativeQuery = true)
     int updateStock(Integer buyQuantity,int id,Integer oldValue);
 
+    @Modifying
+    @Query(value = "update book set Bookcount = (Bookcount + ?1) where Booknumb = ?2", nativeQuery = true)
+    int addStock(Integer buyQuantity,Integer id);
+
+
     /**
      * 修改book库存
      * @param book

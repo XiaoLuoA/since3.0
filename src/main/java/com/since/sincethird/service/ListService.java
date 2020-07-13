@@ -48,6 +48,12 @@ public interface ListService {
 
     WXList findWXListById(Long id);
 
+    /**
+     *
+     * @param no
+     * @return
+     */
+    WXList findByNo(String no);
 
     WxPayUnifiedOrderRequest getWxPayUnifiedOrder(String openid,
                                                   String remoteAddr,String no,int total);
@@ -59,6 +65,8 @@ public interface ListService {
      */
     WXList modifyList(WXList wxList);
 
+
+    boolean modifyList(String id,Integer status);
 
 
     /**

@@ -33,16 +33,18 @@ public class BookController {
     @RequestMapping("/findBookById")
     @ResponseBody
     public Ret findBookById(Long id) {
-        Book book = bookService.findById(id);
-
-        if (book != null) {
-            Ret ret = new Ret(Result.SUCCESS, book);
-            return ret;
-        } else {
+        Book book=null;
+        try{
+             book = bookService.findById(id);
+        }
+        catch(NoSuchElementException e){
             Ret ret = new Ret(BookResult.Book_NOT_FIND, book);
             return ret;
         }
-    }
+        Ret ret = new Ret(Result.SUCCESS, book);
+        return ret;
+        }
+
 
         @RequestMapping("/addClick")
         @ResponseBody

@@ -100,5 +100,10 @@ public class ListServiceImpl implements ListService {
         return listRepository.findWXListById(id);
     }
 
+    @Override
+    public List<WXList> findAllWXList() {
+        return listRepository.findAll();
+    }
+
 
 }

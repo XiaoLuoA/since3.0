@@ -12,4 +12,5 @@ import java.util.List;
 public interface MemosService {
     public WXMemos save(WXMemos wXMemos );
     public List<WXMemos> findAllMemos();
+    public void deleteById(Integer id);
 }

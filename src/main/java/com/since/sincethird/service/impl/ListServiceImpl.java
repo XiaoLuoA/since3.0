@@ -1,19 +1,16 @@
 package com.since.sincethird.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.since.sincethird.common.Config;
 import com.since.sincethird.common.Status;
-import com.since.sincethird.dto.Attach;
 import com.since.sincethird.entity.Book;
 import com.since.sincethird.entity.WXList;
 import com.since.sincethird.repository.ListRepository;
 import com.since.sincethird.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
 
 /**
  * @author 王英豪111
@@ -35,62 +32,55 @@ public class ListServiceImpl implements ListService {
         Integer book_id = Integer.valueOf(wxList.getBookId());
         boolean b = bookService.updateStock(book_id,wxList.getBookNum());
         if (b){
-            WXList ret =  save(wxList);
-            System.out.println("success "+ JSON.toJSONString(ret));
-            return ret;
+            System.out.println("success");
         }else {
             System.out.println("error");
-            return null;
         }
+        return wxList;
+//        Integer book_id = Integer.valueOf(wxList.getBookId());
+//        Book book = bookService.findById(book_id.longValue());
+//        int stock_num = book.getBookcount() - wxList.getBookNum();
+//        boolean flag =updateStock(wxList.getBookNum(),book_id,book.getBookcount());
+//
+//        while (!flag) {
+//            book = bookService.findById(book_id.longValue());
+//            if (book.getBookcount() > wxList.getBookNum()) {
+//                flag = updateStock(wxList.getBookNum(),book_id,book.getBookcount());
+//            } else {
+//                System.out.println("error");
+//                return null;
+//            }
+//        }
+//        System.out.println("success");
+//        return wxList;
     }
 
     @Override
     public WXList save(WXList wxList) {
         Long book_id = Long.valueOf(wxList.getBookId());
-        Book book = bookService.findById(book_id);
-        int n = book.getBookcount() - wxList.getBookNum();
-        synchronized (book){
-            if (n < 0){
-                return null;
-            } else if(n == 0){
-                book.setBookstatus(2);
+        Book book = null;
+        try {
+            book = bookService.findById(book_id);
+        }catch (NoSuchElementException e){
+            int n = book.getBookcount() - wxList.getBookNum();
+            synchronized (book){
+                if (n < 0){
+                    return null;
+                } else if(n == 0){
+                    book.setBookstatus(Status.BOOK_EMPTY);
+                }
+                //修改book库存
+                book.setBookcount(n);
+                bookService.save(book);
             }
-            //修改book库存
-            book.setBookcount(n);
-            bookService.save(book);
         }
-        return wxList;
-    }
-
-
-    @Override
-    public WXList add(String openid, String addr,String tel,String bookId,Integer bookNum,String wxImage){
-        WXList wxList = new WXList();
-        wxList.setOpenId(openid);
-        wxList.setAddress(addr);
-        wxList.setWxImage(wxImage);
-        wxList.setStatus(Status.NORMAL);
-        wxList.setBookId(bookId);
-        Book book = bookService.findById(Long.parseLong(bookId));
-        wxList.setTotal(book.getBookprice()*bookNum);
+        Long time = System.currentTimeMillis();
+        String no = time + String.valueOf(new Random().nextInt(899) + 100);
+        wxList.setNo(no);
         wxList.setBookImage(book.getBookimage1());
         wxList.setBookName(book.getBookname());
-        wxList.setBookNum(bookNum);
         wxList.setBookPrice(book.getBookprice());
         return wxList;
-    }
-
-    @Override
-    public WxPayUnifiedOrderRequest getWxPayUnifiedOrder(String openid, String remoteAddr, String no, int total) {
-        WxPayUnifiedOrderRequest request = new WxPayUnifiedOrderRequest();
-        request.setTradeType("JSAPI");
-        request.setSignType("MD5");
-        request.setBody("since-book");
-        request.setNotifyUrl(Config.HOST +"/pay/unifiedOrder");
-        request.setSpbillCreateIp(remoteAddr);
-        request.setOutTradeNo(no);
-        request.setTotalFee(total);
-        return request;
     }
 
     @Override
@@ -121,6 +111,18 @@ public class ListServiceImpl implements ListService {
     @Override
     public WXList findWXListById(Long id) {
         return listRepository.findWXListById(id);
+    }
+
+    @Override
+    public WXList modifyList(WXList wxList) {
+        wxList.setStatus(Status.WxList_NotPay);
+        return listRepository.save(wxList);
+    }
+
+    @Override
+    public WXList deleteList(WXList wxList) {
+        wxList.setStatus(Status.WxList_Delete);
+        return listRepository.save(wxList);
     }
 
 

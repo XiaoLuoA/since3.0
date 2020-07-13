@@ -32,6 +32,5 @@ public class MemosServiceIpl implements MemosService {
     @Override
     public void deleteById(Integer id) {
         memosRepository.deleteById(id);
-        System.out.println("访问到删除"+id);
     }
 }

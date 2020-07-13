@@ -55,7 +55,6 @@ public class MemosController {
     @RequestMapping("/delete")
     @ResponseBody
     public Ret deleteMemos(String  id){
-        System.out.println("前台获得"+id);
         Ret ret;
         Integer mid=null;
         try{

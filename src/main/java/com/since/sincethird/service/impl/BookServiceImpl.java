@@ -63,5 +63,12 @@ public class BookServiceImpl implements BookService {
         return  book;
     }
 
+    @Override
+    public List<Book> findAllByBookName(String bookName) {
+
+        List<Book> bookList =  bookRep.findAllByBooknameLike(bookName);
+        return bookList;
+    }
+
 
 }

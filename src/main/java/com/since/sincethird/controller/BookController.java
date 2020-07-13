@@ -58,6 +58,22 @@ public class BookController {
             Ret ret = new Ret(Result.SUCCESS, book);
             return ret;
 
+    }
+
+        @RequestMapping("/findAllByBookName")
+        @ResponseBody
+        public Ret findAllByBookName(String bookName){
+        List<Book> bookList = bookService.findAllByBookName(bookName);
+        if(bookName == null || "".equals(bookName)){
+                Ret ret = new Ret(BookResult.Book_NOT_FIND, null);
+                return ret;
+            }
+            Ret ret = new Ret(Result.SUCCESS,bookList);
+            return ret;
 
         }
-}
+
+    }
+
+
+

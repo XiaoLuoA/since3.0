@@ -11,7 +11,7 @@ import java.util.List;
 public interface ListService {
 
     /**
-     * 添加一个订单
+     * 添加或修改一个订单
      * @param wxList
      * @return
      */

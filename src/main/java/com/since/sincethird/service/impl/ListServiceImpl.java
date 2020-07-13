@@ -23,7 +23,6 @@ public class ListServiceImpl implements ListService {
     @Autowired
     private BookServiceImpl bookService;
 
-    private WXList wxList;
 
     @Override
     public synchronized WXList buy(WXList wxList) {
@@ -57,14 +56,15 @@ public class ListServiceImpl implements ListService {
     public WXList save(WXList wxList) {
         Long book_id = Long.valueOf(wxList.getBookId());
         Book book = bookService.findById(book_id);
+        int n = book.getBookcount() - wxList.getBookNum();
         synchronized (book){
-            if ( wxList.getBookNum() > book.getBookcount()){
+            if (n < 0){
                 return null;
-            } else if(book.getBookcount() - wxList.getBookNum() == 0){
+            } else if(n == 0){
                 book.setBookstatus(2);
             }
             //修改book库存
-            book.setBookcount(book.getBookcount() - wxList.getBookNum());
+            book.setBookcount(n);
             bookService.save(book);
         }
         return wxList;

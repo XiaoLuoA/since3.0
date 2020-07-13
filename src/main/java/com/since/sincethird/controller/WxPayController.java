@@ -126,12 +126,12 @@ public class WxPayController {
   public Ret unifiedOrder(@RequestBody Attach attach) throws WxPayException {
     WXUser wxUser = (WXUser) (httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_USER));
     String openid = wxUser.getOpenId();
-    String no = OrderUtil.genOrderNo();
     String wxImage = wxUser.getWxImage();
-    WXList wxList = listService.add(openid,attach.getAddr(),attach.getTel(),attach.getBookId(),attach.getBuyNum(),wxImage);
+    WXList wxList = listService.preList(openid,attach,wxImage);
     WXList saveList = listService.buy(wxList);
     if (saveList!=null){
-      WxPayUnifiedOrderRequest wxPayUnifiedOrder = listService.getWxPayUnifiedOrder(openid, httpServletRequest.getRemoteAddr(), no, wxList.getTotal());
+      WxPayUnifiedOrderRequest wxPayUnifiedOrder = listService.getWxPayUnifiedOrder(openid,
+              httpServletRequest.getRemoteAddr(), wxList.getNo(),wxList.getTotal());
       WxPayUnifiedOrderResult ret = this.wxService.unifiedOrder(wxPayUnifiedOrder);
       HashMap map = new HashMap();
       map.put("appId",ret.getAppid());

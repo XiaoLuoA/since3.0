@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 /**
@@ -57,17 +58,21 @@ public class ListServiceImpl implements ListService {
     @Override
     public WXList save(WXList wxList) {
         Long book_id = Long.valueOf(wxList.getBookId());
-        Book book = bookService.findById(book_id);
-        int n = book.getBookcount() - wxList.getBookNum();
-        synchronized (book){
-            if (n < 0){
-                return null;
-            } else if(n == 0){
-                book.setBookstatus(2);
+        Book book = null;
+        try {
+            book = bookService.findById(book_id);
+        }catch (NoSuchElementException e){
+            int n = book.getBookcount() - wxList.getBookNum();
+            synchronized (book){
+                if (n < 0){
+                    return null;
+                } else if(n == 0){
+                    book.setBookstatus(Status.BOOK_EMPTY);
+                }
+                //修改book库存
+                book.setBookcount(n);
+                bookService.save(book);
             }
-            //修改book库存
-            book.setBookcount(n);
-            bookService.save(book);
         }
         Long time = System.currentTimeMillis();
         String no = time + String.valueOf(new Random().nextInt(899) + 100);

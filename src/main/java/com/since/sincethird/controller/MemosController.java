@@ -25,50 +25,41 @@ public class MemosController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public Ret addMemos(@RequestBody WXMemos wXMemos){
-        Ret ret ;
-        if (null==wXMemos){
-            ret= new Ret(MEMOS_OBJ_IS_NULL,null);
-            return ret;
+    public Ret addMemos(@RequestBody WXMemos wxMemos){
+        if (null==wxMemos){
+            return Ret.error(MEMOS_OBJ_IS_NULL);
         }
-        if (null==wXMemos.getMessage()){
-            ret= new Ret(MEMOS_MESSAGE_IS_NULL,null);
-            return ret;
+        if (null==wxMemos.getMessage()){
+            return Ret.error(MEMOS_MESSAGE_IS_NULL);
         }
-        WXMemos xWMemos=memosService.save(wXMemos);
-        ret= new Ret(SUCCESS,xWMemos);
-        return ret;
+        WXMemos data =memosService.save(wxMemos);
+        return Ret.success(data);
     }
 
     @RequestMapping("/findAll")
     @ResponseBody
     public Ret findAllMemos(){
         List<WXMemos> allMemos=memosService.findAllMemos();
-        Ret ret;
         if (allMemos.size()<1){
-            ret= new Ret(MEMOS_GET_IS_NULL,null);
-            return ret;
+            return Ret.error(MEMOS_GET_IS_NULL);
         }
-        ret= new Ret(SUCCESS,allMemos);
-        return ret;
+        return Ret.success(allMemos);
     }
     @RequestMapping("/delete")
     @ResponseBody
     public Ret deleteMemos(String  id){
-        Ret ret;
-        Integer mid=null;
+        Integer mid;
         try{
             mid=Integer.parseInt(id);
-        }catch (Exception e){
-            ret= new Ret(MEMOS_ID_GET_FAIL,null);
+            try{
+                memosService.deleteById(mid);
+            }catch (Exception e){
+                return Ret.error(MEMOS_NOT_EXIT);
+            }
+        }catch (NumberFormatException e){
+            return Ret.error(MEMOS_ID_GET_FAIL);
         }
-       try{
-           memosService.deleteById(mid);
-       }catch (Exception e){
-           ret= new Ret(MEMOS_NOT_EXIT,null);
-       }
-        ret= new Ret(SUCCESS,"删除成功");
-        return ret;
+        return Ret.success("删除成功");
     }
 
 }

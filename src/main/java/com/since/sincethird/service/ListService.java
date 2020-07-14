@@ -14,62 +14,75 @@ public interface ListService {
 
     /**
      * 添加或修改一个订单
-     * @param wxList
-     * @return
+     * @param wxList 微信订单信息
+     * @return 微信订单
      */
     WXList save(WXList wxList);
 
 
+    /**
+     * 构建订单
+     * @param openid 微信个人唯一标识openid
+     * @param attach 构建订单的相关信息
+     * @param wxImage 微信头像地址
+     * @return 微信订单
+     */
     WXList preList(String openid, Attach attach,String wxImage);
 
 
-
+    /**
+     * 购买：减库存和新建订单
+     * @param wxList 微信订单信息
+     * @return 微信订单
+     */
     WXList buy(WXList wxList);
 
     /**
      * 根据openid查找订单
-     * @param open_id
-     * @return
+     * @param openId 微信个人唯一标识openid
+     * @return  微信订单集合
      */
-    List<WXList> findListByOpenId(String open_id);
+    List<WXList> findListByOpenId(String openId);
 
 
 
     /**
      * 通过订单id查找订单
-     * @param id
-     * @return
+     * @param id 订单id
+     * @return 微信订单
      */
 
-    WXList findWXListById(Long id);
+    WXList findWxListById(Long id);
 
     /**
-     *
-     * @param no
-     * @return
+     *通过订单号查找订单
+     * @param no 订单号
+     * @return 微信订单
      */
     WXList findByNo(String no);
 
+    /**
+     * 微信支付相关
+     * @param openid 微信的个人唯一标识账号
+     * @param remoteAddr 购买者ip
+     * @param no 订单号
+     * @param total 订单金额
+     * @return  微信统一下单接口请求对象
+     */
     WxPayUnifiedOrderRequest getWxPayUnifiedOrder(String openid,
                                                   String remoteAddr,String no,int total);
 
+
     /**
-     * 修改订单状态
-     * @param wxList
-     * @return
+     * 修改订单的状态
+     * @param id  订单id
+     * @param status 状态
+     * @return boolean
      */
-    WXList modifyList(WXList wxList);
-
-
     boolean modifyList(String id,Integer status);
 
 
-    /**
-     * 删除订单状态（状态改为-1）
-     * @param wxList
-     * @return
-     */
-    WXList deleteList(WXList wxList);
+
 
 
     /**
@@ -78,7 +91,11 @@ public interface ListService {
     void findAllByWxListStatus();
 
 
-    List<WXList> findAllWXList();
+    /**
+     *查找所有订单
+     * @return 微信订单的list集合
+     */
+    List<WXList> findAllWxList();
 
 
 

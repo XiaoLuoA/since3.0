@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * @author 王英豪111
@@ -37,10 +35,10 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public synchronized WXList buy(WXList wxList) {
-        Integer book_id = Integer.valueOf(wxList.getBookId());
-        boolean b = bookService.updateStock(book_id,wxList.getBookNum());
+        Integer bookId = Integer.valueOf(wxList.getBookId());
+        boolean b = bookService.updateStock(bookId,wxList.getBookNum());
         if (b){
-            WXList ret =  save(wxList);
+            WXList ret =  listRepository.save(wxList);
             System.out.println("success "+ JSON.toJSONString(ret));
             return ret;
         }else {
@@ -51,10 +49,10 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public WXList save(WXList wxList) {
-        Long book_id = Long.valueOf(wxList.getBookId());
+        Long bookId = Long.valueOf(wxList.getBookId());
         Book book = null;
         try {
-            book = bookService.findById(book_id);
+            book = bookService.findById(bookId);
         }catch (NoSuchElementException e){
             int n = book.getBookcount() - wxList.getBookNum();
             synchronized (book){
@@ -107,6 +105,7 @@ public class ListServiceImpl implements ListService {
         request.setSpbillCreateIp(remoteAddr);
         request.setOutTradeNo(no);
         request.setTotalFee(total);
+        request.setOpenid(openid);
         return request;
     }
 
@@ -116,14 +115,14 @@ public class ListServiceImpl implements ListService {
 
 
     @Override
-    public List<WXList> findListByOpenId(String open_id) {
-        return listRepository.findAllByOpenId(open_id);
+    public List<WXList> findListByOpenId(String openId) {
+        return listRepository.findAllByOpenId(openId);
     }
 
 
     @Override
-    public WXList findWXListById(Long id) {
-        return listRepository.findWXListById(id);
+    public WXList findWxListById(Long id) {
+        return listRepository.findWxListById(id);
     }
 
     @Override
@@ -137,28 +136,18 @@ public class ListServiceImpl implements ListService {
         return listRepository.updateStatus(id,status) > 0;
     }
 
-    @Override
-    public WXList modifyList(WXList wxList) {
-        wxList.setStatus(Status.WX_LIST_NOT_PAY);
-        return listRepository.save(wxList);
-    }
 
-    @Override
-    public WXList deleteList(WXList wxList) {
-        wxList.setStatus(Status.WX_LIST_DELETE);
-        return listRepository.save(wxList);
-    }
 
     @Override
     public void findAllByWxListStatus() {
         List<WXList> wxLists = listRepository.findAllByStatus(Status.WX_LIST_NOT_PAY);
         System.out.println(wxLists);
         for (WXList wxList: wxLists) {
-             Long listTime = Long.valueOf(String.valueOf(wxList.getNo()).substring(0,13));
-             Long nowTime = System.currentTimeMillis();
+             long listTime = Long.parseLong((String.valueOf(wxList.getNo()).substring(0,13)));
+             long nowTime = System.currentTimeMillis();
              //间隔时间
-             Long intervalTime = Long.valueOf(30 * 60 * 1000);
-             Long time = nowTime - listTime;
+             long intervalTime = Long.parseLong(String.valueOf(30 * 60 * 1000));
+             long time = nowTime - listTime;
              if ( time >= intervalTime){
                  listRepository.updateStatus(wxList.getNo(),Status.WX_LIST_DELETE);
              }
@@ -168,7 +157,7 @@ public class ListServiceImpl implements ListService {
 
 
     @Override
-    public List<WXList> findAllWXList() {
+    public List<WXList> findAllWxList() {
         return listRepository.findAll();
     }
 

@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
     public WXUser save(WxMpUser user) {
         WXUser wxUser = findByOpenId(user.getOpenId());
         if (null == wxUser){
+            wxUser = new WXUser();
             wxUser.setOpenId(user.getOpenId());
             wxUser.setWxAddress(user.getProvince()+user.getCity());
             wxUser.setWxName(user.getNickname());

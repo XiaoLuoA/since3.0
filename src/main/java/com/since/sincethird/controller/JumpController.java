@@ -7,6 +7,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/to")
 public class JumpController {
 
+    @RequestMapping("/about")
+    public String about(){
+        return "/about/index";
+    }
+
+    @RequestMapping("/attention")
+    public String attention(){
+        return "/attention/index";
+    }
+
+    @RequestMapping("/cooperation")
+    public String coperation(){
+        return "/cooperation/index";
+    }
+
+    @RequestMapping("/error")
+    public String error(){
+        return "/error/index";
+    }
+
+    @RequestMapping("/push_list")
+    public String push(){
+        return "/push_list/index";
+    }
+
     @RequestMapping("/user")
     public String user(){
         return "/wx_user/index";
@@ -28,7 +53,7 @@ public class JumpController {
         return "/wx_index/index";
     }
 
-    @RequestMapping("/memo")
+    @RequestMapping("/memos")
     public String memos(){
         return "/wx_memos/index";
     }

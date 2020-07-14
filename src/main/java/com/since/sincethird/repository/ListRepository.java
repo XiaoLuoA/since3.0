@@ -34,15 +34,28 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
     List<WXList> findAllByOpenId(String open_id);
 
 
-    WXList findByNo(String no);
     /**
-     * 通过订单id查找订单
-     * @param id
+     * 
+     * @param no
      * @return
      */
+    WXList findByNo(String no);
 
+
+    /**
+     * 通过订单id查找订单
+     * @param id 订单主键id
+     * @return 查找出的订单对象
+     */
     WXList findWXListById(Long id);
 
+
+    /**
+     * 更新订单状态
+     * @param no 要更新订单的订单号
+     * @param status 目标订单状态
+     * @return 更新行数
+     */
     @Transactional
     @Modifying
     @Query(value = "update wx_list set status=?2 where no=?1",nativeQuery = true)

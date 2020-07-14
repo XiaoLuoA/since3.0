@@ -37,7 +37,7 @@ public class ListServiceImpl implements ListService {
         Integer book_id = Integer.valueOf(wxList.getBookId());
         boolean b = bookService.updateStock(book_id,wxList.getBookNum());
         if (b){
-            WXList ret =  save(wxList);
+            WXList ret =  listRepository.save(wxList);
             System.out.println("success "+ JSON.toJSONString(ret));
             return ret;
         }else {
@@ -104,6 +104,7 @@ public class ListServiceImpl implements ListService {
         request.setSpbillCreateIp(remoteAddr);
         request.setOutTradeNo(no);
         request.setTotalFee(total);
+        request.setOpenid(openid);
         return request;
     }
 

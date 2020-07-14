@@ -14,19 +14,21 @@ import java.util.List;
 @Repository
 public interface BookRep extends JpaRepository<Book,Long> {
 
-    @Modifying
-    @Query(value = "update book set Bookcount = (Bookcount - ?1) where Booknumb = ?2 and Bookcount = ?3", nativeQuery = true)
-    int updateStock(Integer buyQuantity,int id,Integer oldValue);
-
+    /**
+     * 增加商品库存数量
+     * @param bookCount 增加数量
+     * @param id 增加书籍的主键
+     * @return 更新行数
+     */
     @Modifying
     @Query(value = "update book set Bookcount = (Bookcount + ?1) where Booknumb = ?2", nativeQuery = true)
-    int addStock(Integer buyQuantity,Integer id);
+    int addStock(Integer bookCount,Integer id);
 
 
     /**
-     * 修改book库存
-     * @param book
-     * @return
+     * 新增或更新书籍信息
+     * @param book 书籍对象
+     * @return 新增或更新后书籍对象
      */
     @Override
     Book save(Book book);
@@ -34,18 +36,20 @@ public interface BookRep extends JpaRepository<Book,Long> {
 
     /**
      * bookName模糊查询
-     * @param Bookname
-     * @return
+     * @param bookname 书名
+     * @return 满足书名条件的集合
      */
     @Query(value = "select * from book where Bookname like %?1% and Bookstatus = 1",nativeQuery = true)
-    List<Book> findAllByBooknameLike(String Bookname);
+    List<Book> findAllByBooknameLike(String bookname);
 
     /**
      * 更新book的点击量+1
+     * @param booknumb 要更新书籍的主键
+     * @return 更新行数
      */
     @Transactional
     @Modifying
     @Query(value = "update book set Bookclick=Bookclick+1 where Booknumb=?1",nativeQuery = true)
-    Integer setBookClickAdd (Long Booknumb);
+    Integer setBookClickAdd(Long booknumb);
 
 }

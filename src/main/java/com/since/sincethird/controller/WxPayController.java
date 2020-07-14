@@ -12,17 +12,14 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.util.SignUtils;
 import com.since.sincethird.common.SessionKey;
-import com.since.sincethird.common.Status;
 import com.since.sincethird.dto.Attach;
 import com.since.sincethird.entity.WXList;
 import com.since.sincethird.entity.WXUser;
 import com.since.sincethird.ret.BookResult;
 import com.since.sincethird.ret.Result;
 import com.since.sincethird.ret.Ret;
-import com.since.sincethird.service.BookService;
 import com.since.sincethird.service.ListService;
 import com.since.sincethird.service.WXPayService;
-import com.since.sincethird.util.OrderUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -134,6 +131,7 @@ public class WxPayController {
   @PostMapping("/unifiedOrder")
   public Ret unifiedOrder(@RequestBody Attach attach) throws WxPayException {
     WXUser wxUser = (WXUser) (httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_USER));
+    System.out.println("登陆用户数据" +JSON.toJSONString(wxUser));
     String openid = wxUser.getOpenId();
     String wxImage = wxUser.getWxImage();
     WXList wxList = listService.preList(openid,attach,wxImage);
@@ -151,9 +149,9 @@ public class WxPayController {
       String sign = SignUtils.createSign(map,"MD5","rghjiklopuyhbnjhgtrfgh54lkjhg52d",new String[0]);
       map.put("sign",sign);
       System.out.println(map);
-      return new Ret(Result.SUCCESS,map);
+      return Ret.success(map);
     }else {
-      return new Ret(BookResult.Book_NOT_ENOUGH,null);
+      return Ret.error(BookResult.Book_NOT_ENOUGH);
     }
   }
 

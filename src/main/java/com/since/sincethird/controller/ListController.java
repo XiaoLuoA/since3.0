@@ -32,6 +32,14 @@ public class ListController {
     private BookService bookService;
 
 
+    @RequestMapping("/test")
+    @ResponseBody
+    public Ret test(){
+        Ret ret = null;
+        listService.findAllByWxListStatus();
+        return ret;
+    }
+
 
     @RequestMapping("/add")
     @ResponseBody

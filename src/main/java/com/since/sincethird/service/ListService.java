@@ -22,12 +22,7 @@ public interface ListService {
 
     WXList preList(String openid, Attach attach,String wxImage);
 
-    /**
-     * 支付订单
-     * @param wxList,WXcode
-     * @return
-     */
-    WXList pay(WXList wxList, String WXcode);
+
 
     WXList buy(WXList wxList);
 

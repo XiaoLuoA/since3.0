@@ -110,21 +110,7 @@ public class ListServiceImpl implements ListService {
         return request;
     }
 
-    @Override
-    public WXList pay(WXList wxList, String WXcode) {
-        Long book_id = Long.valueOf(wxList.getBookId());
-        Book book = bookService.findById(book_id);
-         if (WXcode == "fail" ){
-                //库存返回原来的数量
-             book.setBookcount(book.getBookcount() + wxList.getBookNum());
-             bookService.save(book);
-             return null;
-          }
 
-        //成功，添加订单总金额
-        wxList.setTotal(wxList.getBookNum() * wxList.getBookPrice());
-        return listRepository.save(wxList);
-    }
 
 
 
@@ -166,23 +152,17 @@ public class ListServiceImpl implements ListService {
     @Override
     public void findAllByWxListStatus() {
         List<WXList> wxLists = listRepository.findAllByStatus(Status.WX_LIST_NOT_PAY);
+        System.out.println(wxLists);
         for (WXList wxList: wxLists) {
              Long listTime = Long.valueOf(String.valueOf(wxList.getNo()).substring(0,13));
              Long nowTime = System.currentTimeMillis();
-             int intervalTime = 180000;
-             if (nowTime - listTime == intervalTime){
-                 listRepository.updateStatus(wxList.getNo(),2);
+             //间隔时间
+             Long intervalTime = Long.valueOf(30 * 60 * 1000);
+             Long time = nowTime - listTime;
+             if ( time >= intervalTime){
+                 listRepository.updateStatus(wxList.getNo(),Status.WX_LIST_DELETE);
              }
         }
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        };
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
-        executorService.scheduleAtFixedRate(runnable,0,30, TimeUnit.MINUTES);
 
     }
 

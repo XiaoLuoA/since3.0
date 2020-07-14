@@ -2,7 +2,6 @@ package com.since.sincethird.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.since.sincethird.common.SessionKey;
-import com.since.sincethird.common.Status;
 import com.since.sincethird.entity.WXUser;
 import com.since.sincethird.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
@@ -12,14 +11,10 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -39,7 +34,7 @@ public class WxRedirectController {
     private HttpServletRequest request;
 
     @RequestMapping("/greet")
-    public String greetUser(@PathVariable String appid, @RequestParam String code, ModelMap map) {
+    public String greetUser(@PathVariable String appid, @RequestParam String code) {
         if (!this.wxService.switchover(appid)) {
             throw new IllegalArgumentException(String.format("未找到对应appid=[%s]的配置，请核实！", appid));
         }
@@ -47,9 +42,8 @@ public class WxRedirectController {
             WxMpOAuth2AccessToken accessToken = wxService.oauth2getAccessToken(code);
             WxMpUser user = wxService.oauth2getUserInfo(accessToken, null);
             WXUser wxUser = userService.save(user);
-            HttpSession session = request.getSession(true);
-            session.setAttribute(SessionKey.LOGIN_USER, wxUser);
-            return "redirect:/user/index";
+            request.getSession().setAttribute(SessionKey.LOGIN_USER, wxUser);
+            return "redirect:/to/index";
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,9 @@ package com.since.sincethird.dto;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * @author luoxinyuan
+ */
 @Data
 @ToString
 public class Attach{

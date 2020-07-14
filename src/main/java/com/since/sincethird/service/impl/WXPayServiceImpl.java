@@ -27,14 +27,14 @@ public class WXPayServiceImpl implements WXPayService {
             switch (resCode){
                 case Status.SUCCESS:{
                     System.out.println("真~支付成功");
-                    listService.modifyList(notifyResult.getOutTradeNo(),Status.WXLIST_PAY);
+                    listService.modifyList(notifyResult.getOutTradeNo(),Status.WX_LIST_PAY);
                     System.out.println("success");
                     return true;
                 }
                 case Status.FAIL: {
                     System.out.println("錯誤代碼描述："+notifyResult.getErrCodeDes());
                     String orderId = notifyResult.getOutTradeNo();
-                    boolean modifySuccuss = listService.modifyList(orderId,Status.WXLIST_PAY_FAIL);
+                    boolean modifySuccuss = listService.modifyList(orderId,Status.WX_LIST_PAY_FAIL);
                     if(!modifySuccuss){
                         System.out.println("----------------訂單狀態修改失敗！！！");
                     }

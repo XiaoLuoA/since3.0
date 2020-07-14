@@ -1,7 +1,5 @@
 package com.since.sincethird.ret;
 
-import com.since.sincethird.common.Code;
-
 /**
  * @author 王英豪111
  */

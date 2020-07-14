@@ -25,6 +25,14 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
      WXList save(WXList wxList);
 
 
+    /**
+     * 通过订单状态查找全部订单
+     * @param status
+     * @return
+     */
+    List<WXList> findAllByStatus(int status);
+
+
 
     /**
      * 通过openid查找用户订单

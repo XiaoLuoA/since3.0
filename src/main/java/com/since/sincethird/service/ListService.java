@@ -77,6 +77,10 @@ public interface ListService {
     WXList deleteList(WXList wxList);
 
 
+    /**
+     * 通过订单状态查询所有订单
+     */
+    void findAllByWxListStatus();
 
 
     List<WXList> findAllWXList();

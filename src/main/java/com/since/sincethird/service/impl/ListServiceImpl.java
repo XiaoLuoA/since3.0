@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 王英豪111
@@ -159,6 +162,30 @@ public class ListServiceImpl implements ListService {
         wxList.setStatus(Status.WX_LIST_DELETE);
         return listRepository.save(wxList);
     }
+
+    @Override
+    public void findAllByWxListStatus() {
+        List<WXList> wxLists = listRepository.findAllByStatus(Status.WX_LIST_NOT_PAY);
+        for (WXList wxList: wxLists) {
+             Long listTime = Long.valueOf(String.valueOf(wxList.getNo()).substring(0,13));
+             Long nowTime = System.currentTimeMillis();
+             int intervalTime = 180000;
+             if (nowTime - listTime == intervalTime){
+                 listRepository.updateStatus(wxList.getNo(),2);
+             }
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
+        executorService.scheduleAtFixedRate(runnable,0,30, TimeUnit.MINUTES);
+
+    }
+
 
     @Override
     public List<WXList> findAllWXList() {

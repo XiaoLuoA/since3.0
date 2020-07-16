@@ -15,18 +15,17 @@ import java.util.List;
  * @author jayzh
  */
 @Service
-public class MemosServiceIpl implements MemosService {
+public class MemosServiceImpl implements MemosService {
     @Autowired
     MemosRepository memosRepository;
     @Override
-    public WXMemos save(WXMemos wXMemos) {
+    public WXMemos save(WXMemos wxMemos) {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
-        wXMemos.setMessage_time(formatter.format(date).toString());
-        String message_filter = Jsoup.clean(wXMemos.getMessage(),Whitelist.none());
-        System.out.println(message_filter);
-        wXMemos.setMessage(message_filter);
-        return memosRepository.save(wXMemos);
+        wxMemos.setMessageTime(formatter.format(date).toString());
+        String messageFilter = Jsoup.clean(wxMemos.getMessage(),Whitelist.none());
+        wxMemos.setMessage(messageFilter);
+        return memosRepository.save(wxMemos);
     }
 
     @Override

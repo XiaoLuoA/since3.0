@@ -10,7 +10,19 @@ import java.util.List;
  * @author jayzh
  */
 public interface MemosService {
-    public WXMemos save(WXMemos wXMemos );
+    /**save the a message
+     * @param wxMemos
+     * @return this message
+     */
+    public WXMemos save(WXMemos wxMemos );
+
+    /**find all messages
+     * @return list of message
+     */
     public List<WXMemos> findAllMemos();
+
+    /** delete a message by id
+     * @param id
+     */
     public void deleteById(Integer id);
 }

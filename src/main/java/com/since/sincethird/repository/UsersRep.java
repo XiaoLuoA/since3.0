@@ -6,7 +6,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsersRep extends JpaRepository<WXUser,Long> {
-    WXUser findByOpenId(String OpenId);
+
+    /**
+     * 通过openId 查询一个WXUser
+     * @param openId 人的主键
+     * @return WXUser
+     */
+
+    WXUser findByOpenId(String openId);
 
 
 

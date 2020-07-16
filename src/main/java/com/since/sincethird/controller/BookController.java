@@ -35,7 +35,7 @@ public class BookController {
             book = bookService.findById(id);
         }
         catch(NoSuchElementException e){
-            return  Ret.error(BookResult.Book_NOT_FIND);
+            return  Ret.error(BookResult.BOOK_NOT_FIND);
         }
         return Ret.success(book);
     }
@@ -48,7 +48,7 @@ public class BookController {
                 book = bookService.addClick(bookNumb);
             }
            catch(NoSuchElementException e){
-               return Ret.error(BookResult.Book_NOT_FIND);
+               return Ret.error(BookResult.BOOK_NOT_FIND);
            }
             return Ret.success(book);
 
@@ -60,7 +60,7 @@ public class BookController {
         List<Book> bookList = bookService.findAllByBookName(bookName);
             Ret ret;
             if(bookName == null || "".equals(bookName)){
-                ret = Ret.error(BookResult.Book_NOT_FIND);
+                ret = Ret.error(BookResult.BOOK_NOT_FIND);
                 return ret;
             }
             return Ret.success(bookList);

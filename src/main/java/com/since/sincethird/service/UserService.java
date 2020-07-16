@@ -12,9 +12,21 @@ public interface UserService {
      */
     WXUser findById(Long id);
 
-    WXUser save(WxMpUser WXUser);
+    /**
+     * 保存一个User
+     * @param wxUser
+     * @return WXUser
+     */
 
-    WXUser findByOpenId(String OpenId);
+    WXUser save(WxMpUser wxUser);
+
+    /**
+     * 通过openId 查询一个WXUser
+     * @param openId 人的主键
+     * @return WXUser
+     */
+
+    WXUser findByOpenId(String openId);
 
 
 

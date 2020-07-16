@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public WXUser findByOpenId(String OpenId) {
-        return usersRep.findByOpenId(OpenId);
+    public WXUser findByOpenId(String openId) {
+        return usersRep.findByOpenId(openId);
     }
 
 

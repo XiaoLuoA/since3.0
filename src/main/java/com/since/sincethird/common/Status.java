@@ -16,4 +16,8 @@ public interface Status {
 
      String SUCCESS = "SUCCESS";
      String FAIL = "FAIL";
+     /**
+      * @author jayzh
+      */
+     String COMPARE_CODE="oIaLN56oDznSc0iUoec1ZYuWu8G8";
 }

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.since.sincethird.common.Status.COMPARE_CODE;
+import static com.since.sincethird.ret.UserResult.OPEN_ID_NOT_SAME;
+
 
 /**
  * @author luoxinyuan
@@ -52,6 +55,19 @@ public class UserController{
         }
     }
 
+    /**
+     * @author jayzh
+     */
+    @RequestMapping("/compare")
+    @ResponseBody
+    public Ret compareOpenId(String openId) {
+        if (COMPARE_CODE.equals(openId)){
+            return Ret.success(null);
+        }else {
+            return Ret.error(OPEN_ID_NOT_SAME);
+        }
 
+
+    }
 }
 

@@ -64,7 +64,7 @@ public class ListController {
 
 
 
-    @RequestMapping("/findAllWxlist")
+    @RequestMapping("/findAllWxList")
     @ResponseBody
     public Ret findAllWxList(){
         List<WXList> wxLists = listService.findAllWxList();

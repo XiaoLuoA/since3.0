@@ -5,6 +5,9 @@ import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 
+/**
+ * @author 王英豪111
+ */
 @Entity
 @Data
 @Table(name = "wx_list")

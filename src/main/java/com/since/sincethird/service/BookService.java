@@ -22,6 +22,7 @@ public interface BookService {
      */
     boolean addStock(Integer buyQuantity,Integer id);
     /**
+     * @author drj
      * 查找全部book
      * @return List<Book>
      */
@@ -42,14 +43,16 @@ public interface BookService {
      */
     Book save(Book book);
 
-    /**drj
+    /**
+     * @author drj
      * 查找Book,Set点击+1的前置方法
      * @param bookNumb
      * @return Boolean
      */
     Boolean setBookClickAdd(Long bookNumb);
 
-    /**drj
+    /**
+     * @author drj
      * 查找Book,点击+1
      * @param bookNumb
      * @return Book

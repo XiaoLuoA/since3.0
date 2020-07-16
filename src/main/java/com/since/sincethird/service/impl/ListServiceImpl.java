@@ -128,7 +128,7 @@ public class ListServiceImpl implements ListService {
 
 
     @Override
-    public boolean modifyList(String no) {
+    public boolean modifyList(String no,int status) {
         return listRepository.updateStatus(no,Status.WX_LIST_PAY_SEND) > 0;
     }
 

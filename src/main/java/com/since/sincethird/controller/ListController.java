@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 /**
@@ -80,7 +80,7 @@ public class ListController {
          if (wxList.getStatus() != Status.WX_LIST_PAY){
              return Ret.error(ListResult.LIST_SEND_FAIL);
          }
-         Boolean flag = listService.modifyList(no);
+         Boolean flag = listService.modifyList(no,Status.WX_LIST_PAY_SEND);
          if (flag == false){
              return Ret.error(ListResult.LIST_SEND_FAIL);
          }

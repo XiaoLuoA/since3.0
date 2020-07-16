@@ -69,9 +69,10 @@ public interface ListService {
     /**
      * 修改订单的状态为3（已发货）
      * @param no  订单号
+     * @param status  状态
      * @return boolean
      */
-    boolean modifyList(String no);
+    boolean modifyList(String no, int status);
 
 
 

@@ -14,11 +14,18 @@ public class WXMemos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String wx_name;
-    private String wx_image;
-    private String open_id;
-    private String wx_address;
+    @Column(name = "wx_name")
+    private String wxName;
+    @Column(name = "wx_image")
+    private String wxImage;
+    @Column(name = "open_id")
+    private String openId;
+    @Column(name = "wx_address")
+    private String wxAddress;
     private String message;
-    private String message_time;
+    @Column(name = "message_time")
+    private String messageTime;
     private String status;
+
+    
 }

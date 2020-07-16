@@ -151,7 +151,7 @@ public class WxPayController {
       System.out.println(map);
       return Ret.success(map);
     }else {
-      return Ret.error(BookResult.Book_NOT_ENOUGH);
+      return Ret.error(BookResult.BOOK_NOT_ENOUGH);
     }
   }
 

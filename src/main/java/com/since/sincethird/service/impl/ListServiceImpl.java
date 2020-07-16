@@ -120,10 +120,6 @@ public class ListServiceImpl implements ListService {
     }
 
 
-    @Override
-    public WXList findWxListById(Long id) {
-        return listRepository.findWxListById(id);
-    }
 
     @Override
     public WXList findByNo(String no) {
@@ -132,8 +128,8 @@ public class ListServiceImpl implements ListService {
 
 
     @Override
-    public boolean modifyList(String id,Integer status) {
-        return listRepository.updateStatus(id,status) > 0;
+    public boolean modifyList(String no) {
+        return listRepository.updateStatus(no,Status.WX_LIST_PAY_SEND) > 0;
     }
 
 

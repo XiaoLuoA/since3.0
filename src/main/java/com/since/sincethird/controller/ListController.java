@@ -55,12 +55,10 @@ public class ListController {
     public Ret findListByOpenId(String openId){
         List<WXList> wxLists = listService.findListByOpenId(openId);
         if (openId == null || "".equals(openId)){
-           return Ret.error(ListResult.LIST_OPENID_NOT_FOUND);
+           return Ret.error(ListResult.LIST_ID_NOT_FOUND);
        }
        return Ret.success(wxLists);
     }
-
-
 
 
 
@@ -68,11 +66,24 @@ public class ListController {
     @ResponseBody
     public Ret findAllWxList(){
         List<WXList> wxLists = listService.findAllWxList();
-        wxLists.stream().map(wxList -> {
-            wxList.setStatus(Status.NORMAL);
-            return wxList;
-        }).collect(Collectors.toList());
+           return Ret.success(wxLists);
+    }
 
-        return Ret.success(wxLists);
+
+    @RequestMapping("/modify")
+    @ResponseBody
+    public Ret sendGoods(String no){
+         if (no == null || "".equals(no)){
+             return Ret.error(ListResult.LIST_ID_NOT_FOUND);
+         }
+         WXList wxList = listService.findByNo(no);
+         if (wxList.getStatus() != Status.WX_LIST_PAY){
+             return Ret.error(ListResult.LIST_SEND_FAIL);
+         }
+         Boolean flag = listService.modifyList(no);
+         if (flag == false){
+             return Ret.error(ListResult.LIST_SEND_FAIL);
+         }
+         return Ret.success(null);
     }
 }

@@ -50,12 +50,7 @@ public interface ListRepository extends JpaRepository<WXList,Long> {
     WXList findByNo(String no);
 
 
-    /**
-     * 通过订单id查找订单
-     * @param id 订单主键id
-     * @return 查找出的订单对象
-     */
-    WXList findWxListById(Long id);
+
 
 
     /**

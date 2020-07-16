@@ -46,13 +46,6 @@ public interface ListService {
 
 
 
-    /**
-     * 通过订单id查找订单
-     * @param id 订单id
-     * @return 微信订单
-     */
-
-    WXList findWxListById(Long id);
 
     /**
      *通过订单号查找订单
@@ -74,12 +67,11 @@ public interface ListService {
 
 
     /**
-     * 修改订单的状态
-     * @param id  订单id
-     * @param status 状态
+     * 修改订单的状态为3（已发货）
+     * @param no  订单号
      * @return boolean
      */
-    boolean modifyList(String id,Integer status);
+    boolean modifyList(String no);
 
 
 

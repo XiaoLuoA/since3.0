@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MemosRepository extends JpaRepository<WXMemos,Integer> {
+    /**this interface aim to delete the massage by id
+     * @param id
+     */
     @Override
     public void deleteById(Integer id);
 }

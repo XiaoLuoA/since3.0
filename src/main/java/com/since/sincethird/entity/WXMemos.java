@@ -25,7 +25,7 @@ public class WXMemos {
     private String message;
     @Column(name = "message_time")
     private String messageTime;
-    private String status;
+    private Integer status;
 
     
 }

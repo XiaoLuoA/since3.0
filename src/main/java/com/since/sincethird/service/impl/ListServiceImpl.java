@@ -87,7 +87,7 @@ public class ListServiceImpl implements ListService {
         wxList.setStatus(Status.WX_LIST_NOT_PAY);
         wxList.setBookId(attach.getBookId());
         Book book = bookService.findById(Long.parseLong(attach.getBookId()));
-        wxList.setTotal(book.getBookprice()*attach.getBuyNum());
+        wxList.setTotal(book.getBookprice()*attach.getBuyNum()*Config.YUAN_TO_FEN);
         wxList.setBookImage(book.getBookimage1());
         wxList.setBookName(book.getBookname());
         wxList.setBookNum(attach.getBuyNum());

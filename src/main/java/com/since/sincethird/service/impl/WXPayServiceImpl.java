@@ -10,6 +10,9 @@ import com.since.sincethird.service.WXPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author luoxinyuan
+ */
 @Service
 public class WXPayServiceImpl implements WXPayService {
     @Autowired

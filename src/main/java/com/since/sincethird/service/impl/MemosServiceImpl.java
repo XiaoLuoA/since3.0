@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 /**
  * @author jayzh
  */
@@ -22,7 +24,8 @@ public class MemosServiceImpl implements MemosService {
     public WXMemos save(WXMemos wxMemos) {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
-        wxMemos.setMessageTime(formatter.format(date).toString());
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        wxMemos.setMessageTime(formatter.format(date));
         String messageFilter = Jsoup.clean(wxMemos.getMessage(),Whitelist.none());
         wxMemos.setMessage(messageFilter);
         return memosRepository.save(wxMemos);

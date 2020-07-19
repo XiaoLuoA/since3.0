@@ -21,7 +21,8 @@ public class WXUtil {
      * @param args
      */
     public static void main(String[] args) {
-        genURL("wx55cd46481d4e28d6","http://wxtest.easy.echosite.cn/wx/redirect/wx55cd46481d4e28d6/greet");
+        genURL("wx55cd46481d4e28d6","http://www.sinceweb.xin/wx/redirect/wx55cd46481d4e28d6/greet");
+
     }
     public static String genURL(String appid,String uri){
         String appidStr = "appid="+appid;

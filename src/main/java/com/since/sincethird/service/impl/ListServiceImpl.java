@@ -12,6 +12,7 @@ import com.since.sincethird.service.ListService;
 import com.since.sincethird.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,6 +30,7 @@ public class ListServiceImpl implements ListService {
     @Autowired
     private ListRepository listRepository;
 
+
     @Autowired
     private BookServiceImpl bookService;
 
@@ -38,6 +40,7 @@ public class ListServiceImpl implements ListService {
         Integer bookId = Integer.valueOf(wxList.getBookId());
         boolean b = bookService.updateStock(bookId,wxList.getBookNum());
         if (b){
+            wxList.setTotal(wxList.getTotal());
             WXList ret =  listRepository.save(wxList);
             System.out.println("success "+ JSON.toJSONString(ret));
             return ret;
@@ -87,7 +90,7 @@ public class ListServiceImpl implements ListService {
         wxList.setStatus(Status.WX_LIST_NOT_PAY);
         wxList.setBookId(attach.getBookId());
         Book book = bookService.findById(Long.parseLong(attach.getBookId()));
-        wxList.setTotal(book.getBookprice()*attach.getBuyNum()*Config.YUAN_TO_FEN);
+        wxList.setTotal(book.getBookprice()*attach.getBuyNum());
         wxList.setBookImage(book.getBookimage1());
         wxList.setBookName(book.getBookname());
         wxList.setBookNum(attach.getBuyNum());
@@ -132,7 +135,11 @@ public class ListServiceImpl implements ListService {
         return listRepository.updateStatus(no,Status.WX_LIST_PAY_SEND) > 0;
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
+    public void handleOverTimeList(WXList wxList){
+        listRepository.updateStatus(wxList.getNo(),Status.WX_LIST_DELETE);
+        bookService.addStock(wxList.getBookNum(),Integer.parseInt(wxList.getBookId()));
+    }
 
     @Override
     public void findAllByWxListStatus() {
@@ -145,7 +152,7 @@ public class ListServiceImpl implements ListService {
              long intervalTime = Long.parseLong(String.valueOf(30 * 60 * 1000));
              long time = nowTime - listTime;
              if ( time >= intervalTime){
-                 listRepository.updateStatus(wxList.getNo(),Status.WX_LIST_DELETE);
+                 handleOverTimeList(wxList);
              }
         }
 

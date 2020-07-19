@@ -11,9 +11,14 @@ public interface Status {
      Integer WX_LIST_PAY_FAIL = 0;
 
 
+
+
      Integer NORMAL = 1;
      Integer BOOK_EMPTY = 2;
 
      String SUCCESS = "SUCCESS";
      String FAIL = "FAIL";
+
+
+
 }

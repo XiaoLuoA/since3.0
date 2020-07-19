@@ -11,6 +11,7 @@ import com.github.binarywang.wxpay.bean.result.*;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.util.SignUtils;
+import com.since.sincethird.common.Config;
 import com.since.sincethird.common.SessionKey;
 import com.since.sincethird.dto.Attach;
 import com.since.sincethird.entity.WXList;
@@ -138,7 +139,7 @@ public class WxPayController {
     WXList saveList = listService.buy(wxList);
     if (saveList!=null){
       WxPayUnifiedOrderRequest wxPayUnifiedOrder = listService.getWxPayUnifiedOrder(openid,
-              httpServletRequest.getRemoteAddr(), wxList.getNo(),wxList.getTotal());
+              httpServletRequest.getRemoteAddr(), wxList.getNo(),wxList.getTotal()* Config.YUAN_TO_FEN);
       WxPayUnifiedOrderResult ret = this.wxService.unifiedOrder(wxPayUnifiedOrder);
       HashMap map = new HashMap();
       map.put("appId",ret.getAppid());
